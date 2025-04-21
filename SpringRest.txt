@@ -1,0 +1,462 @@
+@GetMapping("hello/{name}/{quantity}")
+	public String sayhello1(@PathVariable("name") String name1,@PathVariable("quantity") int q)
+	{
+		return ("hello"+name1+"you got"+q +"points");
+		
+	}
+
+package com.example.demo.Service;
+
+import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ProductService {
+    private List<Products> productList = new ArrayList<>();
+    
+    public ProductService() {
+        productList.add(new Products(1L, "Laptop", 75000.00));
+        productList.add(new Products(2L, "Smartphone", 30000.00));
+        productList.add(new Products(3L, "Headphones", 2000.00));
+        productList.add(new Products(4L, "Smartwatch", 5000.00));
+    }
+    
+    public List<Products> getAllProducts() {
+        return productList;
+    }
+    
+    public Products getProductById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        
+        for (Products product : productList) {
+            if (id.equals(product.getId())) {
+                return product;
+            }
+        }
+        
+        return null;
+    }
+    
+    public Products createProduct(Products product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        }
+        productList.add(product);
+        return product;
+    }
+    
+    public List<Products> createManyProducts(List<Products> products) {
+        if (products == null || products.isEmpty()) {
+            throw new IllegalArgumentException("Products list cannot be null or empty");
+        }
+        for (Products product : products) {
+            if (product == null) {
+                throw new IllegalArgumentException("Product in list cannot be null");
+            }
+        }
+        productList.addAll(products);
+        return products;
+    }
+    
+    public boolean deleteProductById(Long id) {
+        if (id == null) {
+            return false;
+        }
+        return productList.removeIf(product -> id.equals(product.getId()));
+    }
+    
+    public boolean updateProduct(Long id, Products updatedProduct) {
+        if (id == null || updatedProduct == null) {
+            return false;
+        }
+        for (int i = 0; i < productList.size(); i++) {
+            if (id.equals(productList.get(i).getId())) {
+                productList.set(i, updatedProduct);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+======================================================
+package com.example.demo.Service;
+
+import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ProductService {
+    private List<Products> productList = new ArrayList<>();
+    
+    public ProductService() {
+        productList.add(new Products(1L, "Laptop", 75000.00));
+        productList.add(new Products(2L, "Smartphone", 30000.00));
+        productList.add(new Products(3L, "Headphones", 2000.00));
+        productList.add(new Products(4L, "Smartwatch", 5000.00));
+    }
+    
+    public List<Products> getAllProducts() {
+        return productList;
+    }
+    
+    public Products getProductById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        
+        for (Products product : productList) {
+            if (id.equals(product.getId())) {
+                return product;
+            }
+        }
+        
+        return null;
+    }
+    
+    public Products createProduct(Products product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+        }
+        productList.add(product);
+        return product;
+    }
+    
+    public List<Products> createManyProducts(List<Products> products) {
+        if (products == null || products.isEmpty()) {
+            throw new IllegalArgumentException("Products list cannot be null or empty");
+        }
+        for (Products product : products) {
+            if (product == null) {
+                throw new IllegalArgumentException("Product in list cannot be null");
+            }
+        }
+        productList.addAll(products);
+        return products;
+    }
+    
+    public boolean deleteProductById(Long id) {
+        if (id == null) {
+            return false;
+        }
+        return productList.removeIf(product -> id.equals(product.getId()));
+    }
+    
+    public boolean updateProduct(Long id, Products updatedProduct) {
+        if (id == null || updatedProduct == null) {
+            return false;
+        }
+        for (int i = 0; i < productList.size(); i++) {
+            if (id.equals(productList.get(i).getId())) {
+                productList.set(i, updatedProduct);
+                return true;
+            }
+        }
+        return false;
+    }
+}
+===========================================================
+
+
+@GetMapping("/{id}")
+   public ResponseEntity<?> getProductById(@PathVariable Integer id) {
+       try {
+           Product product = service.getProductById(id);
+           return ResponseEntity.ok(product);
+       } 
+       catch (InvalidProductIDException ex) {
+           Map<String, String> errorResponse = new HashMap<>();
+           errorResponse.put("error", "Product Not Found");
+           errorResponse.put("message", ex.getMessage());
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+       }
+   }
+---------------------------------------------
+public Product getProductById(Integer id)throws InvalidProductIDException{
+	    for (Product product : data) {
+	        if (product.getId()==(id)) { // Using equals() for Integer comparison
+	            return product;
+	        }
+	    }
+	    throw new InvalidProductIDException("Product with ID " + id + " not found");
+	}
+=============================================================================================================================================================
+Complete Project 
+================:
+package com.unext.RestCrudDemo.Controller;
+
+import java.net.*;
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.unext.RestCrudDemo.Exception.InvalidProductIDException;
+import com.unext.RestCrudDemo.Model.Product;
+import com.unext.RestCrudDemo.Service.ProductService;
+
+import jakarta.websocket.server.PathParam;
+ 
+
+ @RestController
+public class ProductController {
+   @Autowired
+   ProductService service;
+    
+   @GetMapping("/listall")
+    public List<Product> list() {
+        return service.listAllProducts();
+    }
+   @GetMapping("/{id}")
+   public ResponseEntity<?> getProductById(@PathVariable Integer id) {
+       try {
+           Product product = service.getProductById(id);
+           return ResponseEntity.ok(product);
+       } 
+       catch (InvalidProductIDException ex) {
+           Map<String, String> errorResponse = new HashMap<>();
+           errorResponse.put("error", "Product Not Found");
+           errorResponse.put("message", ex.getMessage());
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+       }
+   }
+   
+ //@GetMapping("/getproduct/{id}")
+    @RequestMapping(value = "/getproduct/{id}", method=RequestMethod.GET )
+        public Product get(@PathVariable("id") int i) {
+    	System.out.println(i);
+    	Product product=null;
+    
+    	try {
+       product = service.get(i);
+    	}
+    	catch(InvalidProductIDException e)
+    	{
+    		System.out.println(e);
+    	}
+        return product;
+      
+    }
+  
+  @RequestMapping(value = "/addproduct1", method = RequestMethod.POST)
+//@PostMapping("/addproduct")
+ 
+        public String add(@RequestBody Product product)  {
+        boolean b=service.add(product);
+       if(b)
+       {
+      return   "your product added successfully";
+       }
+       else
+    	   return "sorry";
+    }
+   
+  @PutMapping("/updateProdutById/{id}/{name}")
+  public Product updateProduct(@PathVariable("id") int id,@PathVariable("name") String name)
+  {
+	  return service.updateProduct1(id, name);
+  }
+  
+  
+  @PutMapping("/update/{id}/{name}")
+  public ResponseEntity<Product> updateProduct1(@PathVariable("id") int id,@PathVariable("name") String name) {
+      Product p = service.updateProduct1(id, name);
+      return new ResponseEntity<>(p, HttpStatus.OK);
+  }
+    
+   
+ 
+   // @DeleteMapping("/deleteproduct/{id}")
+  @RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.DELETE)
+    public boolean delete(@PathVariable("id") int id) {
+        if (service.deleteAll(id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+-------------------------------------------------------
+package com.unext.RestCrudDemo.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.unext.RestCrudDemo.Exception.InvalidProductIDException;
+import com.unext.RestCrudDemo.Model.Product;
+ @Service
+public class ProductService {
+    
+    private static List<Product> data = new ArrayList();
+     
+    static {
+        data.add(new Product(1, "iPhone X", 999.99f));
+        data.add(new Product(2, "XBOX 360", 329.50f));     
+    }
+     
+    public ProductService() {
+         
+    }
+     
+  
+     
+    public List<Product> listAllProducts() {
+        
+    	return data;
+    }
+     
+    public boolean add(Product product) {
+
+        data.add(product);
+    
+        return true;
+    }
+     
+    public Product get(int id) throws InvalidProductIDException{
+
+    	boolean flag=false;
+    	for(Product p1:data)
+    	{
+    		if(p1.getId()==id)
+    		{ flag=true;
+    			return p1;
+    		
+    		}
+    	}
+    	if(flag==false)
+    	{
+    		throw new InvalidProductIDException("product Id doesn't exist");
+    		//return false;
+    	}
+    	
+    	return null;
+    	
+    }
+    	
+    
+     
+    public boolean deleteAll(int id) {
+
+    	List<Product> list=new ArrayList();
+  	boolean flag=false;
+  	for(Product l:data)//2
+     {
+  	   if(l.getId()==id)
+   	   {
+  		  // data.remove(id);
+    		 list.add(l);
+    		   
+    	   }
+           
+        }
+       
+    flag=data.removeAll(list);
+    System.out.println(flag);
+    return flag;
+    
+    }
+   public Product updateProduct1(int id,String name) 
+   {
+	   Product p1=null;
+	   for(Product p:data)
+	   {
+		   if(p.getId()==id)
+		   {
+			   p.setName(name);
+			   p1=p;
+		   }
+	   }
+	   return p1;
+   }
+   public Product getProductById(Integer id)throws InvalidProductIDException{
+	    for (Product product : data) {
+	        if (product.getId()==(id)) { // Using equals() for Integer comparison
+	            return product;
+	        }
+	    }
+	    throw new InvalidProductIDException("Product with ID " + id + " not found");
+	}
+    
+     
+   
+}
+---------------------------------------------------------
+package com.unext.RestCrudDemo.Exception;
+
+public class InvalidProductIDException extends Exception {
+
+	public InvalidProductIDException(String msg) {
+		super(msg);
+	}
+
+}
+---------------------------------------------------
+package com.unext.RestCrudDemo.Model;
+
+public class Product {
+    private Integer id;
+    private String name;
+    private float price;
+ 
+    public Product(int id) {
+        this.id = id;
+    }
+     public Product() {
+    }
+ 
+    public Product(int id, String name, float price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+ 
+       
+ 
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + "]";
+	}
+}

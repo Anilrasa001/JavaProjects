@@ -1,0 +1,113 @@
+schema/Resolvers
+================
+const { UserList }=require("../FakeData");
+
+const resolvers={
+Query:{
+
+    users(){
+
+        return UserList;
+    },
+},
+
+
+};
+module.exports={ resolvers };
+
+type defs:
+==========
+const { gql }  = require("apollo-server");
+const typeDefs=gql`
+
+type User{
+    id: ID!
+    name: String!
+    username: String!
+    age: Int
+    nationality: String!
+}
+
+type Query
+{
+    users: [User!]!
+}
+
+`;
+module.exports={ typeDefs };
+
+
+fakeData:
+========
+const UserList=[
+
+    {
+    id:1,
+    name:"John",
+    username:"john",
+    age:23,
+    nationality:"India"
+    
+    },
+    {
+        id:2,
+        name:"Sara",
+        username:"Sara",
+        age:24,
+        nationality:"Brazil"
+        
+        },
+        {
+            id:3,
+            name:"Ken",
+            username:"Ken",
+            age:21,
+            nationality:"Canada"
+            
+            }
+    ];
+    module.exports={ UserList };
+
+
+index.js
+========
+const { ApolloServer } = require("apollo-server");
+const { typeDefs } = require("./schema/type-defs");
+const { resolvers} = require("./schema/resolvers");
+
+
+const server=new ApolloServer({ typeDefs,resolvers});
+
+server.listen().then(({ url })=>{
+
+    console.log(`YOUR API IS RUNNING AT: ${url}:)`);
+});
+
+
+
+
+
+
+lock-json
+==========:
+same as prevoius 
+
+package.json
+============:
+{
+  "name": "project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "apollo-server": "^3.13.0",
+    "graphql": "^16.10.0",
+    "nodemon": "^3.1.9"
+  }
+}

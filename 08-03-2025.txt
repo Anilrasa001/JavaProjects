@@ -1,0 +1,427 @@
+//constructor overloading demo
+public class Cuboid1 {
+int l,b;
+Cuboid1(int p,int q)
+{
+	l=p;
+	b=q;
+}
+Cuboid1(float a,int b)
+{
+	l=(int)a;
+	this.b=b;
+}
+Cuboid1(){}
+void volume()
+{
+	System.out.println(l*b);
+}
+public static void main(String args[])
+{
+Cuboid1 obj=new Cuboid1(2,3);
+obj.volume();
+Cuboid1 obj1=new Cuboid1();
+obj1.volume();
+Cuboid1 obj2=new Cuboid1(2.1f,5);
+obj2.volume();
+}
+}
+-------------------------------------------------------------------------------
+2)Method overloading
+-------------------------------------------------------------------------------
+public class Cuboid1 {
+int l,b;
+void setValues(int p,int q)
+{
+	l=p;
+	b=q;
+}
+int setValues(float a,int b)
+{
+	l=(int)a;
+	this.b=b;
+	return (l*b);
+}
+void setValues(){}
+void volume()
+{
+	System.out.println(l*b);
+}
+public static void main(String args[])
+{
+Cuboid1 obj=new Cuboid1();
+obj.setValues(2,3);
+obj.volume();
+Cuboid1 obj1=new Cuboid1();
+obj1.setValues();
+obj1.volume();
+Cuboid1 obj2=new Cuboid1();
+System.out.println(obj2.setValues(4.1f,6));
+
+}
+}
+
+----------------------------------------
+3.//passing object to method
+-------------------------------------------
+
+public class Cuboid {
+int l,b;
+Cuboid(int a,int b)
+{
+	l=a;
+	this.b=b;
+}
+Cuboid(){}
+Cuboid addObjects(Cuboid obj3,Cuboid obj4)
+{
+	Cuboid temp=new Cuboid();
+	temp.l=obj3.l+obj4.l;
+	temp.b=obj3.b+obj4.b;
+	return temp;
+	
+}
+
+void volume()
+{
+	System.out.println(l*b);
+}
+public static void main(String args[])
+{
+	Cuboid obj=new Cuboid(5,10);
+	Cuboid obj1=new Cuboid(15,20);
+	Cuboid obj2=new Cuboid();
+	Cuboid p=obj2.addObjects(obj,obj1);
+	System.out.println(p.l+" +"+"j"+p.b);
+}
+}
+
+=========================Access Modifiers=====================================
+
+package com.publicaccess;
+
+public class access
+{
+	private  int x;
+	public void meth()
+	{
+		 int d=20;
+		System.out.println("loacl"+d+"instance :"+x);
+	}
+	public void sayHello()
+	{
+		System.out.println("welcome");
+	}
+}
+------------------------------
+package com.march8demos;
+import java.util.*;
+import com.publicaccess.*;
+public class App {
+
+
+	public static void main(String[] args) {
+	access obj=new access();
+	obj.meth();
+	obj.sayHello();
+
+	}
+
+}
+
+
+=============================setter and getter methods===================================
+
+public class Student {
+private int studentId;
+private String studentName;
+
+	public Student(int studentId, String studentName) {
+	
+	this.studentId = studentId;
+	this.studentName = studentName;
+}
+
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+
+	public static void main(String[] args) {
+		Student s=new Student(10,"Akash");
+		System.out.println(s.getStudentId()+" :"+s.getStudentName());
+
+
+	}
+
+}
+
+==================================================================
+----------------------------------------------------
+Arrays
+-----------------------------------
+1)
+package com.arrays;
+
+import java.util.Scanner;
+
+public class ArrayDemo{
+	public static void main(String ar[])
+	{
+int arr[]=new int[5];
+Scanner s=new Scanner(System.in);
+
+for(int i=0;i<arr.length;i++)
+{
+	System.out.println("enter elemnt for position"+(i+1));
+	arr[i]=s.nextInt();
+}
+System.out.println("displaying array elements");
+for(int i=0;i<arr.length;i++)
+{
+	System.out.println(arr[i]);
+}
+System.out.println("using enhanced for loop");
+for(int g:arr)
+{
+	System.out.println(g);
+}
+}}
+
+
+---------------------------------------------------------------------
+creating array of user defined class
+----------------------------------------------------------
+public class Employee {
+private int id;
+private String name;
+private double salary;
+public Employee(int id, String name, double salary) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.salary = salary;
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public double getSalary() {
+	return salary;
+}
+public void setSalary(double salary) {
+	this.salary = salary;
+}
+public static void main(String args[])
+{
+	Employee obj[]=new Employee[3];
+	obj[0]=new Employee(10,"ann",7000);
+	obj[1]=new Employee(11,"bann",17000);
+	obj[2]=new Employee(12,"kann",27000);
+	for(int i=0;i<obj.length;i++)
+	{
+		System.out.println(obj[i].getName());
+	}
+	System.out.println("using enhanced for loop");
+	for(Employee lokesh:obj )
+		System.out.println(lokesh.getName());
+}
+
+}
+----------------------------------------------------------------
+array of String
+-----------------------------------------
+package com.arrays;
+
+public class StringDemo {
+
+	public static void main(String[] args) {
+		//String arr[]= {"akash","surendra","vivek"};
+		String arr[]=new String[3];
+		arr[0]="akash";
+		arr[1]="ujwal";
+		arr[2]="bhanu";
+		for(String ujwal:arr)
+		{
+			System.out.println(ujwal);
+		}
+	}
+
+}
+
+-------------------------------------------------------------
+
+AFTERNOON 
+=========
+
+passing array to method
+---------------------------
+public class PassArratToMeth {
+
+	int  meth(int m[]) {
+		int sum=0;
+		for(int x:m)
+		{
+			sum=sum+x;
+		}
+		return sum;
+		
+	}
+	public static void main(String[] args) {
+		int arr[]= {1,2,3,4,5};
+		PassArratToMeth  obj=new PassArratToMeth ();
+		System.out.println(obj.meth(arr,4));
+
+	}
+
+}
+
+---------------------------------------------------print empnames who have salary>10000.code snippet is given----------------------------------
+public class Employee {
+private int id;
+private String name;
+private double salary;
+public Employee(int id, String name, double salary) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.salary = salary;
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public double getSalary() {
+	return salary;
+}
+public void setSalary(double salary) {
+	this.salary = salary;
+}
+public static void main(String args[])
+{
+	Employee obj[]=new Employee[3];
+	obj[0]=new Employee(10,"ann",7000);
+	obj[1]=new Employee(11,"bann",17000);
+	obj[2]=new Employee(12,"kann",27000);
+	for(int i=0;i<obj.length;i++)
+	{
+		System.out.println(obj[i].getName());
+	}
+	System.out.println("using enhanced for loop");
+	for(Employee lokesh:obj )
+		System.out.println(lokesh.getName());
+}
+
+}
+
+------------------------------------------------------------------------------
+1.Find the Missing Number in an Array
+Given an array of n distinct numbers from 1 to n+1 (with one number missing), find the missing number.
+
+2. Find Duplicate Elements in an Array
+
+3.Given an array, identify all duplicate elements.
+Find the Intersection of Two Arrays
+
+4.Given two arrays, find the common elements present in both.
+Rotate an Array (Cyclic Rotation)
+
+5.Given an array, rotate it right by k positions.
+15 Find Pairs with a Given Sum
+
+6.Given an array and a sum S, find all pairs of numbers that add up to S.
+
+7.FINDING AN ELEMENT IN AN ARRAY.   
+
+
+
+Inheritence
+-------------------------
+1)protected demo
+----------------------------
+package com.inheritence;
+
+public class ProtectedDemo {
+protected int x=10;
+
+
+}
+package com.inheritence1;
+
+import com.inheritence.ProtectedDemo;
+
+
+public class Main1 extends ProtectedDemo {
+	
+	void meth()
+	{
+		System.out.println(x);
+	}
+	public static void main(String args[])
+	{
+		Main1 obj=new Main1();
+		obj.meth();
+		
+		
+	}
+}
+------------------------------------------------------------------------
+
+package com.inheritence;
+class Rectangle
+{
+	int l,b;
+	void setValuesforRect(int p,int q)
+	{
+		l=p;b=q;
+	}
+}
+public class Cuboid extends Rectangle
+{
+	int h=30;
+	void volume()
+	{
+		System.out.println(l*b*h);
+	}
+public static void main(String args[])
+{
+	Cuboid obj=new Cuboid();
+	obj.setValuesforRect(5, 6);
+	obj.volume();
+}
+}
+
+
+

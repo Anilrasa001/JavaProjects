@@ -1,0 +1,1057 @@
+//dynamic polymorphism demo
+-----------------------------------------------
+
+class Employee1
+{
+	int id=100;
+	 String name="Ann";
+	
+	 void doSomething(Employee1 e)
+	 {
+		 System.out.println(e.id+" "+e.name);
+		 if(e instanceof Manager1)
+		 {
+			Manager1 m=(Manager1)e;
+			System.out.println(m.dept);
+		 }
+		 if(e instanceof Clerk)
+		 {
+			Clerk m=(Clerk)e;
+			System.out.println(m.pf);
+		 }
+	 }
+	 
+}
+class Manager1 extends Employee1
+{
+	String dept="sales";
+	
+	
+	
+}
+class Clerk extends Employee1
+{
+	int pf=10000;
+	
+	
+	
+}
+
+public class PolymorphismDemo {
+
+	public static void main(String[] args) {
+		Employee1 m =new Manager1();
+		m.doSomething(m);
+	 m =new Clerk();
+		m.doSomething(m);
+
+
+	}
+
+}
+--------------------------------------------------------------------
+--2)package com.inheritence;
+
+class Shape
+{
+	void area()
+	{
+		System.out.println("printing shape area");
+	}
+}
+class Rect1 extends Shape
+{
+	void area()
+	{
+		System.out.println("printing Rectangle area");
+	}
+	void meth()
+	{
+		System.out.println("hello all");
+	}
+}
+class Square extends Shape
+{
+	void area()
+	{
+		System.out.println("printing Square area");
+	}
+}
+public class DynamicPolymorphismDemo1 {
+	public static void main(String args[])
+	{
+		
+	
+Shape s=new Shape();
+s.area();
+ s=new Rect1();
+s.area();
+
+s=new Square();
+s.area();
+}
+}      
+------------------------------------------------------------
+
+-->3)package com.inheritence;
+
+//Base class: BankAccount
+class BankAccount {
+ protected String accountNumber;
+ protected double balance;
+ protected String ownerName;
+
+ // Constructor
+ public BankAccount(String accountNumber, String ownerName, double balance) {
+     this.accountNumber = accountNumber;
+     this.ownerName = ownerName;
+     this.balance = balance;
+ }
+
+ // Method to deposit money
+ public void deposit(double amount) {
+     if (amount > 0) {
+         balance += amount;
+         System.out.println("Deposited: $" + amount);
+     } else {
+         System.out.println("Invalid deposit amount.");
+     }
+ }
+
+ public boolean withdraw(double amount) {
+     if (amount > 0 && amount <= balance) {
+         balance -= amount;
+         System.out.println("Withdrawn: $" + amount);
+         return true;
+     } else {
+         System.out.println("Insufficient balance or invalid amount.");
+         return false;
+     }
+ }
+
+ // Display account details
+ public void displayAccountInfo() {
+     System.out.println("Account Number: " + accountNumber);
+     System.out.println("Owner: " + ownerName);
+     System.out.println("Balance: $" + balance);
+ }
+}
+
+
+class SavingsAccount extends BankAccount {
+ private double interestRate; // Interest rate in percentage
+
+ // Constructor
+ public SavingsAccount(String accountNumber, String ownerName, double balance, double interestRate) {
+     super(accountNumber, ownerName, balance);
+     this.interestRate = interestRate;
+ }
+
+
+ public void applyInterest() {
+     double interest = (balance * interestRate) / 100;
+     balance += interest;
+     System.out.println("Interest added: $" + interest);
+ }
+}
+
+
+class CheckingAccount extends BankAccount {
+ private double overdraftLimit; // Overdraft limit
+
+ // Constructor
+ public CheckingAccount(String accountNumber, String ownerName, double balance, double overdraftLimit) {
+     super(accountNumber, ownerName, balance);
+     this.overdraftLimit = overdraftLimit;
+ }
+
+
+ public boolean withdraw(double amount) {
+     if (amount > 0 && (balance + overdraftLimit) >= amount) {
+         balance -= amount;
+         System.out.println("Withdrawn: $" + amount);
+         return true;
+     } else {
+         System.out.println("Withdrawal failed: Exceeds overdraft limit.");
+         return false;
+     }
+ }
+}
+
+
+public class BankingSystemDemo {
+ public static void main(String[] args) {
+     
+     SavingsAccount savings = new SavingsAccount("SA12345", "Alice", 5000.0, 3.5);
+     System.out.println("\n--- Savings Account Details ---");
+     savings.displayAccountInfo();
+     savings.deposit(1000);
+     savings.applyInterest();
+     savings.displayAccountInfo();
+
+     // Creating a Checking Account
+     CheckingAccount checking = new CheckingAccount("CA67890", "Bob", 2000.0, 500);
+     System.out.println("\n--- Checking Account Details ---");
+     checking.displayAccountInfo();
+     checking.withdraw(2200); // Within overdraft limit
+     checking.displayAccountInfo();
+     checking.withdraw(500); // Exceeds overdraft limit
+ }
+}
+
+
+
+
+Task to do
+------------------------------------------------------------------
+The base class LibraryItem contains common attributes and behaviors.
+The subclasses Book and Magazine inherit from LibraryItem and extend functionality.
+Encapsulation & Method Overriding
+
+displayDetails() method is overridden in both Book and Magazine classes to display specific attributes like genre (for books) and issueNumber (for magazines).
+User-Friendly Interface
+
+Simple console-based implementation to display information about library items.
+        LibraryItem
+        ├── title : String
+        ├── author : String
+        ├── yearPublished : int
+        ├── displayDetails()
+              │
+              ├── Book
+              │   ├── genre : String
+              │   ├── displayDetails()
+              │
+              ├── Magazine
+                  ├── issueNumber : int
+                  ├── displayDetails()
+----------------------------------------------------------------
+
+
+Tasks to do:
+Question on Setter and Getter
+-------------------------------------------------
+Student Grade Calculation System
+
+You are required to develop a simple student grade calculation system using Java. Implement a class Student with the following attributes and methods:
+
+id: An integer representing the student ID.
+name: A string representing the student's name.
+marks: An integer array storing marks for multiple subjects.
+average: A floating-point number representing the student's average marks.
+grade: A character representing the student's grade.
+Getter and setter methods for all attributes.
+A calculateAvg() method that computes the average of all subject marks.
+A findGrade() method that assigns a grade based on the following conditions:
+If the average is between 80 and 100 (inclusive), assign grade 'O'.
+If any subject mark is below 50, assign grade 'F'.
+Otherwise, assign grade 'A'.
+Additionally, implement a class StudentMain that:
+
+Accepts user input for id, name, and number of subjects.
+Ensures the number of subjects is a positive integer.
+Accepts marks for each subject and ensures they are positive.
+Calls calculateAvg() and findGrade() methods.
+Displays the student's ID, name, average marks (formatted to two decimal places), and grade.
+Tasks:
+Implement the missing logic to ensure input validation for the number of subjects and marks.
+Test the program by creating a student, setting details, and verifying the grade calculation
+
+2)You are required to develop a Java program that takes input for multiple semesters, records marks for subjects in each semester, and determines the highest mark for each semester. Implement a class HighestMarkPerSem that performs the following tasks:
+
+Accepts the number of semesters from the user.
+For each semester, prompts the user to enter the number of subjects.
+Accepts marks for each subject, ensuring they are within a valid range (0-100).
+If an invalid mark is entered, display an error message and terminate the program.
+Determines the highest mark obtained in each semester.
+Displays the highest mark for each semester.
+-------------------------------------------------------------------------------
+3)Finding Factors of a Number
+
+You are required to develop a Java program that finds and prints all factors of a given integer. Implement a class FindFactor that performs the following tasks:
+
+Accepts an integer input from the user.
+If the input is 0, print "No Factors" and terminate the program.
+Compute and display all factors of the absolute value of the input number.
+The factors should be printed in ascending order and separated by commas.
+-------------------------------------------------------------------------------------------
+4)
+Checking Compatibility of Two Arrays
+
+You are required to develop a Java program that checks whether two arrays are compatible based on the following conditions:
+
+The program should accept two integer arrays from the user.
+If either array has a size less than or equal to zero, print "Invalid array size" and terminate.
+If the sizes of the two arrays are different, print "Arrays are Not Compatible" and terminate.
+If the first array has elements greater than or equal to the corresponding elements in the second array at every index, print "Arrays are Compatible". Otherwise, print "Arrays are Not Compatible".
+---------------------------------------------------------------------------------------
+
+5)Tracking Associate Work Status
+
+You are required to develop a Java program that tracks an associate's work status based on the number of training days completed. Implement a class Associate with the following attributes and methods:
+
+Attributes:
+
+associateId: An integer representing the associate's ID.
+associateName: A string representing the associate's name.
+workStatus: A string representing the associate's current work status.
+Methods:
+
+Getter and setter methods for all attributes.
+trackAssociateStatus(int days): This method determines the associate's work status based on the number of days completed:
+0 to 20 days → "Core skills"
+21 to 40 days → "Advanced modules"
+41 to 60 days → "Project phase"
+More than 60 days → "Deployed in project"
+Additionally, implement a Main class that:
+
+Accepts user input for associateId, associateName, and number of days completed.
+Calls trackAssociateStatus(int days) and prints the associate’s name along with their work status.
+Tasks:
+Modify the program to handle edge cases like negative values for days.
+Enhance input validation to ensure only valid data is accepted.
+
+-----------------------------------------------------------
+package com.inheritence;
+
+public class Student {
+int id;
+String name;
+static String college="RVCE"; 
+
+
+
+	public Student(int id, String name) {
+	super();
+	this.id = id;
+	this.name = name;
+}
+void displayDetails()
+{
+	System.out.println(id+" "+name+" "+college);
+}
+
+
+	public static void main(String[] args) {
+		Student s=new Student(10,"Ann");
+		Student s1=new Student(11,"BAnn");
+		Student s2=new Student(12,"KAnn");
+	s.displayDetails();
+	s1.displayDetails();
+	s2.displayDetails();
+		
+	}
+
+}
+-------------------------------------------------------
+
+Static Demos
+--------------------------------------------------------
+package com.inheritence;
+
+class App
+{
+	int i,j;
+	static int k;
+	static
+	{
+		System.out.println("hello");
+	}
+	static
+	{
+		System.out.println("hello............");
+	}
+	App()
+	{
+		i++;
+		j++;
+		k++;
+		
+	}
+	static void meth()
+	{
+		System.out.println("i am a static method"+" "+k);
+	}
+
+
+	public static void main(String[] args) {
+		App obj1=new App();
+		System.out.println(obj1.i+"  "+obj1.j+" "+k);
+		App obj2=new App();
+		System.out.println(obj2.i+"  "+obj2.j+" "+k);
+		App obj3=new App();
+		System.out.println(obj3.i+"  "+obj3.j+" "+k);
+		meth();
+	}
+
+}
+--------------------------------------------------------------------------
+Scenario:
+You are working on a Banking System where multiple accounts are created and managed. Each bank account has an account number, account holder name, and balance. Additionally, all bank accounts share a common interest rate, which should be the same for every account.
+
+Task:
+Create a BankAccount class with the following attributes and methods:
+
+A static variable interestRate that represents the interest rate for all accounts.
+Instance variables: accountNumber, accountHolder, and balance.
+A constructor to initialize an account.
+A method deposit(double amount) to add money to the balance.
+A method withdraw(double amount) to deduct money from the balance (ensure the balance does not go negative).
+A static method setInterestRate(double rate) to update the interest rate for all accounts.
+A method displayAccountDetails() to print the account details along with the current interest rate.
+Create a BankDemo class with the main method:
+
+Instantiate two bank accounts.
+Deposit and withdraw some money.
+Change the interest rate using the static method.
+Display the details of both accounts.
+Question:
+Implement the BankAccount class and BankDemo class. Demonstrate the effect of using a static variable and static method in Java.
+
+Abstract eg demo
+-----------------------------------
+package com.inheritence;
+
+abstract class Shape1
+{
+	int length=10,breadth=5;
+	 abstract void area(); 
+	void meth() {System.out.println("hello");
+	}
+	
+}
+ class Rect extends Shape1{
+	 void area() {
+		 System.out.println(length*breadth);
+	 }
+	 void meth() {System.out.println("hello i am in rect");
+}}
+ class cuboid  extends Shape1{
+	 int h=5;
+	 void area() {
+		 System.out.println(length*breadth*h);
+	 }
+}
+public class AbstractDemo {
+public static void main(String args[])
+{
+	Shape1 s=new Rect();
+	s.area();
+	s.meth();
+	 s=new cuboid();
+		s.area();
+}
+}
+-------------------------------------------------------------------------
+Abstract class with constructor
+------------------------------------------------------------------
+package com.inheritence;
+abstract class Cuboid3
+{
+	int l,b;
+	Cuboid3(int m,int n)
+	{
+		l=m;b=n;
+	}
+	abstract void area();
+	
+}
+
+
+public class AbstractConstructorDemo extends Cuboid3{
+	int h;
+	AbstractConstructorDemo(int a,int b,int c)
+	{
+		super(a,b);
+		h=c;
+		
+	}
+	void area() {
+		System.out.println(l*b*h);
+	}
+	public static void main(String[] args) {
+	Cuboid3 obj=new 	AbstractConstructorDemo(4,5,6);
+obj.area();
+	}
+
+}
+-----------------------------------------------------------------------------
+exercise u shud work on 
+---------------------------------------------------------------------------------
+Employee Salary and Loan Calculation System
+
+You are required to develop a Java program that models an employee salary and loan calculation system. Implement the following classes with the specified functionality:
+com.model-----------------
+1. Abstract Class: Employee
+Attributes:
+employeeId: An integer representing the employee’s ID.
+employeeName: A string representing the employee’s name.
+salary: A double representing the employee’s salary.
+Constructor:
+A 2-argument constructor to initialize employeeId and employeeName.
+Methods:
+Getter and setter methods for all attributes.
+An abstract method calculateSalary() to be implemented in subclasses.
+2. Class: PermanentEmployee (Inherits from Employee)
+Additional Attribute:
+basicPay: A double representing the base salary of a permanent employee.
+Constructor:
+A 3-argument constructor initializing employeeId, employeeName, and basicPay.
+Implements calculateSalary():
+Salary is calculated as basicPay - (12% of basicPay).
+3. Class: TemporaryEmployee (Inherits from Employee)
+Additional Attributes:
+hoursWorked: An integer representing the number of hours worked.
+hourlyWages: An integer representing the wage per hour.
+Constructor:
+A 4-argument constructor initializing employeeId, employeeName, hoursWorked, and hourlyWages.
+Implements calculateSalary():
+Salary is calculated as hoursWorked * hourlyWages.
+4. Class: Loan
+Method:
+public double calculateLoanAmount(Employee employeeObj):
+If the employee is a PermanentEmployee, loan amount = 15% of salary.
+If the employee is a TemporaryEmployee, loan amount = 10% of salary.
+5. Class: Main-  com.util
+
+Accepts user input to create instances of PermanentEmployee or TemporaryEmployee.
+Calls calculateSalary() and displays the employee’s details and loan amount
+
+
+--------------------------------------------------------------------------
+Interface example
+-------------------------------------------------------------------
+package com.inheritence1;
+interface i1
+{
+	int x=15,y=5;
+	void add();
+	void sub();
+}
+interface i2 extends i1
+{
+	void mul();
+	void div();
+}
+
+public class InterfaceDemo implements i2{
+	public void add()
+	{
+		System.out.println(x+y);
+	}
+	public void sub()
+	{
+		System.out.println(x-y);
+	}
+	public void mul()
+	{
+		System.out.println(x*y);
+	}
+	public void div()
+	{
+		System.out.println(x/y);
+	}
+
+	public static void main(String[] args) {
+	  i2 obj=new InterfaceDemo();
+	obj.add();
+	obj.sub();
+	obj.mul();
+obj.div();
+	}
+
+}
+-------------------------------------------------------------------------------------
+Question: Payment Processing System
+You are designing a Payment Processing System where different payment methods (Credit Card, PayPal, and Bank Transfer) share common behavior but implement their own processing logic.
+
+Requirements:
+Define an interface Payment with the following methods:
+
+void processPayment(double amount): Process the payment for the given amount.
+String getPaymentMethod(): Return the payment method name.
+Implement three classes (CreditCardPayment, PayPalPayment, BankTransferPayment) that implement the Payment interface:
+
+CreditCardPayment: Displays "Processing credit card payment of $amount".
+PayPalPayment: Displays "Processing PayPal payment of $amount".
+BankTransferPayment: Displays "Processing bank transfer payment of $amount".
+In the PaymentDemo class, write a method that accepts a Payment object and calls its methods.
+
+Demonstrate polymorphism by processing payments with different methods using the Payment interface
+--------------------------------------------------------------------       
+
+
+
+String Ref equlaity demo
+----------------------------------
+package com.strings;
+
+public class RefEqualityDemo {
+
+	public static void main(String[] args) {
+		String s="hello";
+		//String s1="hello";
+		String s1=new String("hello");
+		if(s==s1)
+		{
+			System.out.println("ref equality is true");
+		}
+		else
+		{
+			System.out.println("ref equality is false");
+		}
+		
+
+	}
+
+}
+---------------------------------------------------------------------------------
+
+public class ObjectEqualityDemo {
+
+	public static void main(String[] args) {
+		String s="hello";
+		//String s1="hello";
+		String s1=new String("hello");
+		if(s.equals(s1))
+		{
+			System.out.println("obj equality is true");
+		}
+		else
+		{
+			System.out.println("obj equality is false");
+		}
+		
+
+	}
+
+}1.Harry's assignment
+-----------------------------------
+Harry has recently learned about strings in his programming classes. He decided to create some interesting strings using the basic concepts.
+Help Harry!
+Your task here is to implement a JAVA code based on the following specifications. Note that your code should match the specifications in a precise manner. Consider default visibility of classes, data fields and methods unless mentioned otherwise. All the methods that you are implementing should be non-static.
+Specification:
+class definitions:
+ class StringPlay:
+  data fields:
+   int convert
+   int max;
+  StringPlay(): Define an empty constructor with public visibility.
+
+ class StringMethods:
+   convertToInt(StringPlay sp, String str):
+    visibility: public
+    return type:int
+   getMax(StringPlay sp, String str, char ch):
+    visibility: public
+    return type:int
+Task:
+class StringPlay 
+- Implement StringPlay class according to the above specifications
+class StringMethods
+- Implement the below methods for this class:
+•	int convertToInt(StringPlay sp, String str): Convert the string str to int, return the int value and assign the value to suitable sp variable(convert). All the strings will contain only numbers.
+•	Example: str = "123" then resultant is 123.
+•	int getMax(StringPlay sp, String str, char ch): Return the total number of char ch present in string str and assign the value to sp variable max and return the same value.
+•	Example: str = "This is good" , ch = 'o' then resultant value = 2
+•	Example: str = "doselect Et le", ch='e' then resultant value = 3
+
+Sample Input
+StringMethods sm = new StringMethods();
+StringPlay sp = new StringPlay();
+sm.getMax(sp,"fgfgfgf",'g')
+sm.convertToInt(sp,"123")
+Sample Output
+3
+123
+--------------------------------------------------------------------------------
+---------------------------------------------------
+
+Abstract eg demo
+-----------------------------------
+package com.inheritence;
+
+abstract class Shape1
+{
+	int length=10,breadth=5;
+	 abstract void area(); 
+	void meth() {System.out.println("hello");
+	}
+	
+}
+ class Rect extends Shape1{
+	 void area() {
+		 System.out.println(length*breadth);
+	 }
+	 void meth() {System.out.println("hello i am in rect");
+}}
+ class cuboid  extends Shape1{
+	 int h=5;
+	 void area() {
+		 System.out.println(length*breadth*h);
+	 }
+}
+public class AbstractDemo {
+public static void main(String args[])
+{
+	Shape1 s=new Rect();
+	s.area();
+	s.meth();
+	 s=new cuboid();
+		s.area();
+}
+}
+-------------------------------------------------------------------------
+Abstract class with constructor
+------------------------------------------------------------------
+package com.inheritence;
+abstract class Cuboid3
+{
+	int l,b;
+	Cuboid3(int m,int n)
+	{
+		l=m;b=n;
+	}
+	abstract void area();
+	
+}
+
+
+public class AbstractConstructorDemo extends Cuboid3{
+	int h;
+	AbstractConstructorDemo(int a,int b,int c)
+	{
+		super(a,b);
+		h=c;
+		
+	}
+	void area() {
+		System.out.println(l*b*h);
+	}
+	public static void main(String[] args) {
+	Cuboid3 obj=new 	AbstractConstructorDemo(4,5,6);
+obj.area();
+	}
+
+}
+-----------------------------------------------------------------------------
+exercise u shud work on 
+---------------------------------------------------------------------------------
+Employee Salary and Loan Calculation System
+
+You are required to develop a Java program that models an employee salary and loan calculation system. Implement the following classes with the specified functionality:
+com.model-----------------
+1. Abstract Class: Employee
+Attributes:
+employeeId: An integer representing the employee’s ID.
+employeeName: A string representing the employee’s name.
+salary: A double representing the employee’s salary.
+Constructor:
+A 2-argument constructor to initialize employeeId and employeeName.
+Methods:
+Getter and setter methods for all attributes.
+An abstract method calculateSalary() to be implemented in subclasses.
+2. Class: PermanentEmployee (Inherits from Employee)
+Additional Attribute:
+basicPay: A double representing the base salary of a permanent employee.
+Constructor:
+A 3-argument constructor initializing employeeId, employeeName, and basicPay.
+Implements calculateSalary():
+Salary is calculated as basicPay - (12% of basicPay).
+3. Class: TemporaryEmployee (Inherits from Employee)
+Additional Attributes:
+hoursWorked: An integer representing the number of hours worked.
+hourlyWages: An integer representing the wage per hour.
+Constructor:
+A 4-argument constructor initializing employeeId, employeeName, hoursWorked, and hourlyWages.
+Implements calculateSalary():
+Salary is calculated as hoursWorked * hourlyWages.
+4. Class: Loan
+Method:
+public double calculateLoanAmount(Employee employeeObj):
+If the employee is a PermanentEmployee, loan amount = 15% of salary.
+If the employee is a TemporaryEmployee, loan amount = 10% of salary.
+5. Class: Main-  com.util
+
+Accepts user input to create instances of PermanentEmployee or TemporaryEmployee.
+Calls calculateSalary() and displays the employee’s details and loan amount
+--------------------------------------------------------------------------
+Interface example
+-------------------------------------------------------------------
+package com.inheritence1;
+interface i1
+{
+	int x=15,y=5;
+	void add();
+	void sub();
+}
+interface i2 extends i1
+{
+	void mul();
+	void div();
+}
+
+public class InterfaceDemo implements i2{
+	public void add()
+	{
+		System.out.println(x+y);
+	}
+	public void sub()
+	{
+		System.out.println(x-y);
+	}
+	public void mul()
+	{
+		System.out.println(x*y);
+	}
+	public void div()
+	{
+		System.out.println(x/y);
+	}
+
+	public static void main(String[] args) {
+	  i2 obj=new InterfaceDemo();
+	obj.add();
+	obj.sub();
+	obj.mul();
+obj.div();
+	}
+
+}
+-------------------------------------------------------------------------------------
+Question: Payment Processing System
+You are designing a Payment Processing System where different payment methods (Credit Card, PayPal, and Bank Transfer) share common behavior but implement their own processing logic.
+
+Requirements:
+Define an interface Payment with the following methods:
+
+void processPayment(double amount): Process the payment for the given amount.
+String getPaymentMethod(): Return the payment method name.
+Implement three classes (CreditCardPayment, PayPalPayment, BankTransferPayment) that implement the Payment interface:
+
+CreditCardPayment: Displays "Processing credit card payment of $amount".
+PayPalPayment: Displays "Processing PayPal payment of $amount".
+BankTransferPayment: Displays "Processing bank transfer payment of $amount".
+In the PaymentDemo class, write a method that accepts a Payment object and calls its methods.
+
+Demonstrate polymorphism by processing payments with different methods using the Payment interface
+--------------------------------------------------------------------
+String Ref equlaity demo
+----------------------------------
+package com.strings;
+
+public class RefEqualityDemo {
+
+	public static void main(String[] args) {
+		String s="hello";
+		//String s1="hello";
+		String s1=new String("hello");
+		if(s==s1)
+		{
+			System.out.println("ref equality is true");
+		}
+		else
+		{
+			System.out.println("ref equality is false");
+		}
+		
+
+	}
+
+}
+---------------------------------------------------------------------------------
+
+public class ObjectEqualityDemo {
+
+	public static void main(String[] args) {
+		String s="hello";
+		//String s1="hello";
+		String s1=new String("hello");
+		if(s.equals(s1))
+		{
+			System.out.println("obj equality is true");
+		}
+		else
+		{
+			System.out.println("obj equality is false");
+		}
+		
+
+	}
+
+}
+---------------------------------------------------
+1.Harry's assignment
+-----------------------------------
+Harry has recently learned about strings in his programming classes. He decided to create some interesting strings using the basic concepts.
+Help Harry!
+Your task here is to implement a JAVA code based on the following specifications. Note that your code should match the specifications in a precise manner. Consider default visibility of classes, data fields and methods unless mentioned otherwise. All the methods that you are implementing should be non-static.
+Specification:
+class definitions:
+ class StringPlay:
+  data fields:
+   int convert
+   int max;
+  StringPlay(): Define an empty constructor with public visibility.
+
+ class StringMethods:
+   convertToInt(StringPlay sp, String str):
+    visibility: public
+    return type:int
+   getMax(StringPlay sp, String str, char ch):
+    visibility: public
+    return type:int
+Task:
+class StringPlay 
+- Implement StringPlay class according to the above specifications
+class StringMethods
+- Implement the below methods for this class:
+•	int convertToInt(StringPlay sp, String str): Convert the string str to int, return the int value and assign the value to suitable sp variable(convert). All the strings will contain only numbers.
+•	Example: str = "123" then resultant is 123.
+•	int getMax(StringPlay sp, String str, char ch): Return the total number of char ch present in string str and assign the value to sp variable max and return the same value.
+•	Example: str = "This is good" , ch = 'o' then resultant value = 2
+•	Example: str = "doselect Et le", ch='e' then resultant value = 3
+
+Sample Input
+StringMethods sm = new StringMethods();
+StringPlay sp = new StringPlay();
+sm.getMax(sp,"fgfgfgf",'g')
+sm.convertToInt(sp,"123")
+Sample Output
+3
+123
+--------------------------------------------------------------------------------
+2)Program 2:
+
+DESCRIPTION
+Alice is working in a cybersecurity company. He has given a string that contains some message, that message can be decoded by some operation defined below. After the decode of that message he needs to encode another message to send, so Alice needs your help.
+Your task here is to implement a Java code based on the following specifications. Note that your code should match the specifications in a precise manner. Consider default visibility of classes, data fields, and methods unless mentioned otherwise.
+Specifications:
+ class definition: 
+  class Encryption:
+      decodeMessage(String message):
+         return type: String 
+         visibility: public
+
+      encodeMessage(String message):
+         return type: String 
+         visibility: public
+
+Task:
+class Encryption:
+Implement the below method for this class:
+String decodeMessage(String message): 
+•	Write a code to decode the message.
+•	To get the original message we need to remove all the vowels from the string.
+Refer to the below example for a clear understanding
+str = "oriGinal MessAge" then return "rGnl Mssg".
+String encodeMessage(String message): 
+•	Write a code to encode the message.
+•	To get the encoded message we need to the add vowels in lower case in a circular way ( a->e->i->o->u->a->e->i . . .).
+•	After space, we don't need to add a vowel.
+Refer to the below example for a clear understanding
+str = "QWRT cvbN MnKL" then return "QaWeRiTo cuvabeNi MonuKaLe".
+Note: Message will contain both upper and lower case alphabets.
+
+Sample Input
+Encryption obj = new Encryption();
+----------------------------------------------
+obj.decodeMessage("oriGinal MessAge");
+obj.encodeMessage("QWRT cvbN MnKL");
+Sample Output
+
+rGnl Mssg
+QaWeRiTo cuvabeNi MonuKaLe
+
+
+---------------------------------------------------------------------------------------------
+
+Program 3:
+
+Main class Source should have the functionality to validate the input hexadecimal and decimal colour codes.
+Create two static methods in class ColourCodeValidator as per the below signature
+validateHexCode(String):int
+validateDecimalCode(String):int
+
+Both the methods return 1 for valid codes and -1 for invalid codes. Rules for valid codes are given below
+Hexadecimal code rules
+•	Format: #A1BC23
+•	Must start with "#" symbol
+•	Must contain six characters after #
+•	It may contain alphabets from A-F or digits from 0-9
+Decimal code rules
+•	Format: rgb(x,y,z)
+•	x,y and z are values from 0 to 255 inclusive
+In the main method , do the following
+•	Accept the inputs using Console as shown in the Example section
+•	First input is choice based on which one of the static methods should be invoked
+•	choice 1 is for validating the input hexadecimal colour code
+•	choice 2 is for validating the input decimal colour code
+•	Display Valid code or Invalid code based on the validation result
+•	If the choice is neither 1 or 2, display message "Invalid choice"
+Example
+Sample Input:
+1 #ABCDEF
+
+Expected Output:
+Valid Code
+Sample Input:
+2 rgb(9,99,249)
+
+Expected Output:
+Valid Code
+Sample Input:
+9
+
+Expected Output:
+Invalid choice
+
+
+
+program 4:
+
+DESCRIPTION
+Your task here is to implement a JAVA code based on the following specifications. Note that your code should match the specifications in a precise manner. Consider default visibility of classes, data fields and methods unless mentioned otherwise.
+Specifications:
+class definitions:
+  class Student:
+      data fields:
+        name: String variable
+        usn: String Variable
+        college: String variable
+        cgpa : int variable
+      Constructor to initialize the class variables.
+        public Student(name,usn,college,cgpa)
+      
+  class StudentImplementation:
+      method definitons:
+        Student getStudentInfo(String str): To extract the name,usn,college and cgpa from the String str and return a student object.
+            return type: Student object
+            visibility: public
+            
+        String getStudentSection(Student s): Use the usn of the Student s and return the section he/she is in. If last three digit of student usn is between 001-060 return "A", if usn is between 061-120 return "B" , if usn is between 121-180 return "C" and if usn greater than 180 return "Z".
+            return type: String
+            visibility: public
+
+String manipulation is a tough task and your company wants you to do some string operations and manipulation.
+Suppose you are given a string (example Amit Rai@1PC16CS046-ALU#8):
+•	The part before '@' represents the name of the student.
+•	The part before '-' and after '@' represents the usn of the student.
+•	The part before '#' and after '-' represents the college of the student.
+•	The part after '#' represents the cgpa of the student.
+Tasks:
+•	Implement the Student class according to the specification given.
+•	Implement the StudentImplementation class where you have to implement the following two methods according to the specifications given:
+1.	Student getStudentInfo(String str)
+2.	String getStudentSection(Student s)
+Method Descriptions:
+1. Student getStudentInfo(String str):
+•	takes a String parameter (e.g. Amit Rai@1PC16CS046-ALU#8).
+•	Extract the information from the String str
+•	Create and populate a Student object with the extracted information and return the Student object
+2. String getStudentSection(Student s):
+•	takes a Student object as the parameter.
+•	Use the last three digits of usn of the Student s and return the section he/she is in.
+•	If last three digit of student's usn is between 001-060 return "A", if usn is between 061-120 return "B" , if usn is between 121-180 return "C" and if usn is greater than 180 return "Z".
+-----------------------------------------------------------------------------------------------------------------------------
+

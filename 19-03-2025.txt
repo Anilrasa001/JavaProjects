@@ -1,0 +1,554 @@
+Maven ==classSpringDemo==
+=========================
+
+AppConfig.java
+--------------:
+package com.example2;
+import com.example1.*;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.example1.Employee;
+
+@Configuration
+public class AppConfig {	
+	@Bean
+	public Employee getEmpObject()//Employee getEmpObject=new Employee();
+	{
+		Employee e=new Employee(10,"ann");
+		return e;
+		
+	}
+
+}
+
+
+
+App.java
+--------
+package com.example.ClassBasedSpringCoreDemo;
+import com.example1.*;
+import com.example2.*;
+ 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new AnnotationConfigApplicationContext(AppConfig.class);
+       Employee e=ctx.getBean("getEmpObject",Employee.class);
+   System.out.println(e);
+    
+    }
+}
+
+
+
+
+Employee.java
+--------------:
+
+
+package com.example1;
+
+
+
+public class Employee {
+	private int id;
+	String name;
+	public Employee(int id, String name) {
+	
+		this.id = id;
+		this.name = name;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + "]";
+	}
+
+
+
+
+2nd:
+====
+
+
+
+Employee.java
+-------------
+package com.example1;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+
+public class Employee {
+	private int id;
+	String name;
+	@Autowired(required=true)
+	Address adr;
+	public Employee(int id, String name, Address adr) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.adr = adr;
+	}
+	public int getId() {
+		return id;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", adr=" + adr + "]";
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Address getAdr() {
+		return adr;
+	}
+	public void setAdr(Address adr) {
+		this.adr = adr;
+	}
+	
+	
+	
+
+}
+
+App.java
+---------
+
+
+package com.example.ClassBasedSpringCoreDemo;
+import com.example1.*;
+import com.example2.*;
+ 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new AnnotationConfigApplicationContext(AppConfig.class);
+       Employee e=ctx.getBean(Employee.class);
+   System.out.println(e);
+    
+    }
+}
+
+
+AppConfig.java
+--------------:
+
+package com.example2;
+import com.example1.*;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.example1.Employee;
+
+@Configuration
+public class AppConfig {	
+//	@Bean
+//	public Employee getEmpObject()//Employee getEmpObject=new Employee();
+//	{
+//		Employee e=new Employee(10,"ann");
+//		return e;
+//		
+//	}
+	@Bean
+    public Address address() {
+        return new Address("New York", "NY"); // Creating Address bean
+    }
+
+    @Bean
+    public Employee employee() {
+        return new Employee(10,"Ben",address()); // Injecting Address into Employee
+    }
+}
+
+
+
+Address.java
+------------:
+
+package com.example1;
+
+public class Address {
+	String city;
+	String state;
+	public Address(String city, String state) {
+		super();
+		this.city = city;
+		this.state = state;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	@Override
+	public String toString() {
+		return "Address [city=" + city + ", state=" + state + "]";
+	}
+	
+
+}
+
+
+3)
+===
+package com.walmart.ClassBasedConfigDemo.model;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component ("empobj")
+public class Emp { 
+	@Value(value="100")
+	int empId;
+	@Value(value="Ben")
+	String empname;
+	@Autowired
+	Address adr;
+	
+	
+	public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	public String getEmpname() {
+		return empname;
+	}
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
+	public Address getAdr() {
+		return adr;
+	}
+	public void setAdr(Address adr) {
+		this.adr = adr;
+	}
+	@Override
+	public String toString() {
+		return "Emp [empId=" + empId + ", empname=" + empname + ", adr=" + adr + "]";
+	}
+	
+	
+
+}
+--------------------------------------
+package com.walmart.ClassBasedConfigDemo.model;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Address {
+	@Value(value="chennai")
+String city;
+	@Value(value="TN")
+String state;
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
+public String getState() {
+	return state;
+}
+public void setState(String state) {
+	this.state = state;
+}
+@Override
+public String toString() {
+	return "Address [city=" + city + ", state=" + state + "]";
+}
+
+	
+	
+	
+}
+--------------------------------------------
+package com.walmart.ClassBasedConfigDemo.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+import com.walmart.ClassBasedConfigDemo.model.Emp;
+
+@Configuration
+@ComponentScan("com.*")
+public class AppConfig {
+	/*
+	@Bean
+	public  Emp   getEmployeeObject()//Emp getEmployeeObject=new Emp();
+	{
+		Emp e=new Emp();
+		e.setEmpId(100);
+		e.setEmpname("John");
+		return e;
+	}
+	
+	*/
+
+}
+------------------------
+package com.walmart.ClassBasedConfigDemo;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.walmart.ClassBasedConfigDemo.config.AppConfig;
+import com.walmart.ClassBasedConfigDemo.model.Emp;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new AnnotationConfigApplicationContext(AppConfig.class);
+       //Emp e=(Emp)ctx.getBean("getEmployeeObject");
+       Emp e=ctx.getBean("empobj",Emp.class);
+       System.out.println(e);
+    }
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Spring MVC Workflow (Request Flow)
+Client sends an HTTP request to the Spring MVC application.
+The request is intercepted by DispatcherServlet (Front Controller).
+HandlerMapping determines the appropriate controller to process the request.
+The request is forwarded to the Controller, which processes it using the Service layer.
+The Controller prepares the model data and returns a logical view name.
+ViewResolver maps the logical view name to an actual view.
+The view (e.g., JSP, Thymeleaf) is rendered with the model data and sent as a response.
+----------------------------------------------------------------------------------------
+Component	          Description
+  
+DispatcherServlet	The Front Controller that handles all incoming requests and routes them to the appropriate controller.
+HandlerMapping	        Maps URLs to controllers (Decides which controller should handle which request).
+Controller	        Contains business logic and processes user input.
+Model	                Holds application data (Java objects, DTOs).
+ViewResolver	                 Resolves views like JSP, Thymeleaf, JSON, XML.
+View (JSP/HTML)	                 The UI layer of the application.
+Service Layer	                 Business logic layer (Interacts with repositories or external APIs).
+DAO (Data Access Object)	  Handles database operations (If connected to a database).
+==========================================================================================================================
+
+add dependency to pom.xml
+---------------------------------
+<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.30</version>
+        </dependency>
+
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JSP and JSTL -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+-------------------------------------------
+web.xml file under web-inf
+-----------------------
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         version="3.0">
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
+----------------------------------------
+spring-servlet.xml
+------------------------------<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.example.controller"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
+------------------------------------------------------
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.example.controller"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
+----------------------------------------------------------
+HomeController code
+-----------------------------------------
+package com.example.controller;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+
+public class HomeController {
+
+	@RequestMapping("/")
+    public String home(Model model) {
+        model.addAttribute("message", "Welcome to Spring MVC!");
+        return "home"; // Resolves to /WEB-INF/views/home.jsp
+    }
+}
+----------------------------
+home.jsp
+-----------------
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Spring MVC Example</title>
+</head>
+<body>
+    <h1>${message}</h1>
+</body>
+</html>
+
+===============
+AppConfig under com.example.config package
+-------------------------------
+package com.example.config;
+
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{AppConfig.class};
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return null;
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
+}
+
+---------------------------------------------
+package com.example.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = "com.example")
+public class AppConfig implements WebMvcConfigurer {
+
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+}
+
+
+
+

@@ -1,0 +1,148 @@
+Project name:FirestSpringBoot
+=============================:
+
+src/main/java
+-------------inside com.example.demo
+--------------------------------------inside  FirestSpringBootApplication.java
+------------------------------------------------------------------------------
+
+
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+
+public class FirestSpringBootApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FirestSpringBootApplication.class, args);
+	}
+
+}
+
+
+src/main/java
+-------------inside com.example.demo.controller
+--------------------------------------inside  HomeController.java
+------------------------------------------------------------------------------
+
+package com.example.demo.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeController {
+	@GetMapping("/Hello")
+	public  String sayHello()
+	{
+		
+		return "index";
+	}
+}
+
+
+Static/main/resources
+------------------------inside templates folder
+-----------------------------------------indide application.controller
+------------------------------------------------------------------------
+spring.application.name=FirestSpringBoot
+server.port=8086
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+src
+----------inside main
+------------------------------inside webapp
+----------------------------------------------WEB-INF
+-------------------------------------------------------VIEWS
+------------------------------------------------------------INDEX.JSP
+-----------------------------------------------------------------------
+<html>
+	<head></head>
+	<body>
+		hi anil rasa
+	</body>
+	</html>
+
+
+
+POM.XML
+------
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>FirestSpringBoot</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>FirestSpringBoot</name>
+	<description>DemoprojectforSpring Boot</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+        	<groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+    </dependency>
+    
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+ 

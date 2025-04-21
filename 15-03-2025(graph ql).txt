@@ -1,0 +1,393 @@
+type defs:
+=========
+const { gql }  = require("apollo-server");
+const typeDefs=gql`
+
+type User{
+    id: ID!
+    name: String!
+    username: String!
+    age: Int
+    nationality: nation
+    friends:[User]
+}
+
+type Query
+{
+    users: [User!]!
+}
+enum nation{
+    INDIA,
+    CHINA,
+    BRAZIL,
+    CHILE
+}
+
+`;
+module.exports={ typeDefs };\\
+
+
+fake data:
+==========
+const UserList=[
+
+{
+id:1,
+name:"John",
+username:"john",
+age:23,
+nationality:"INDIA",
+friends:[{
+    id:3,
+    name:"Ken",
+    username:"Ken",
+    age:21,
+    nationality:"BRAZIL"},
+    {
+        id:2,
+        name:"Sara",
+        username:"Sara",
+        age:24,
+        nationality:"CHINA"
+    }
+
+]
+
+},
+{
+    id:2,
+    name:"Sara",
+    username:"Sara",
+    age:24,
+    nationality:"CHINA"
+    
+    },
+    {
+        id:3,
+        name:"Ken",
+        username:"Ken",
+        age:21,
+        nationality:"BRAZIL",
+        friends:
+       [ {
+
+        id:2,
+        name:"Sara",
+        username:"Sara",
+        age:24,
+        nationality:"CHINA"
+
+        }]
+        
+        }
+];
+module.exports={ UserList };
+
+
+
+resolvers
+---------:
+const { UserList }=require("../FakeData");
+
+const resolvers={
+Query:{
+
+    users(){
+
+        return UserList;
+    },
+},
+
+
+};
+module.exports={ resolvers };
+
+
+
+
+
+sql query :
+-==========
+const { UserList }=require("../FakeData");
+
+const resolvers={
+Query:{
+
+    users(){
+
+        return UserList;
+    },
+},
+
+
+};
+module.exports={ resolvers };
+
+
+
+
+
+unit testing:
+=============
+----------
+Mian class:
+----------
+
+package com.pack;
+
+public class MainClass {
+
+	public int addMeth(int x,int y)
+	{
+		return x+y;
+	}
+	
+	public boolean checkString(String s)
+	{
+		if(s.length()%2==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+-----------------------------------------------
+package com.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import com.pack.MainClass;
+
+public class Apptest {
+	static MainClass obj=null;
+@BeforeAll
+public static void before1()
+{
+	obj=new MainClass();
+}
+	@Test
+	@DisplayName("Adding 2 nos")
+	public void testAddMeth()
+	{
+		
+		int actual=obj.addMeth(5, 6);
+		int expected=11;
+		assertEquals(expected,actual);
+		
+	}
+	@Test
+	public void testcheckString()
+	{
+		
+		boolean b=obj.checkString("Anil");
+		assertTrue(b);
+		
+	}
+	
+	
+	@Disabled
+	public void methUnderTesting()
+	{
+		System.out.println("hello");
+		
+	}
+	
+}
+------------------------------------------------------------
+main class:
+============
+@parameterized 
+--------------
+
+
+
+
+
+====================
+
+public int methodForException(String s)
+	{
+		if(s==null||s.trim().length()==0)
+		{
+			throw new IllegalArgumentException("check string for not null");
+		}
+		return Integer.valueOf(s);
+	}
+
+
+
+
+
+=====================================================================================================
+
+
+package com.pack;
+
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
+
+
+
+public class MainClass {
+
+	public int addMeth(int x,int y)
+	{
+		return x+y;
+	}
+	
+	public String intgreater(int a,int b)
+	{
+		String message=null;
+		if(a>b)
+		{
+			message="Greater";
+			
+		}
+		else
+		{
+			message="smaller.";
+		}
+		return message;
+	}
+	public boolean checkString(String s)
+	{
+		if(s.length()%2==0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	public int methodForException(String s)
+	{
+		if(s==null||s.trim().length()==0)
+		{
+			throw new IllegalArgumentException("Check string for not null or empty");
+		}
+		return Integer.valueOf(s);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+--------------------------------------------
+testcase file
+----------------------------------------------
+package com.test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import com.pack.MainClass;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class Apptest {
+	static MainClass obj=null;
+@BeforeAll
+public static void before1()
+{
+	obj=new MainClass();
+}
+	@Test
+	@Order(1)
+	@DisplayName("Adding 2 nos")
+	public void testAddMeth()
+	{
+		
+		int actual=obj.addMeth(5, 6);
+		int expected=11;
+		assertEquals(expected,actual);
+		
+	}
+	@ParameterizedTest
+	@ValueSource(strings= {"ram","annu","banu"})
+	@Order(2)
+	public void testcheckString(String str)
+	{
+		
+		boolean b=obj.checkString(str);
+		assertTrue(b);
+		
+	}
+	@AfterAll
+	public static void before12()
+	{
+		obj=null;
+		System.out.println("end of after all");
+	}	
+	@Test
+	@Order(3)
+	public void testcheckbigger()
+	{
+		String actual=obj.intgreater(6, 7);
+		assertEquals("smaller",actual);
+	}
+	@Test
+	@DisplayName("tesing for Exception")
+		public void testMeth5()
+	{
+		String s=" ";
+		Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+			   obj.methodForException(s);
+			  });
+			  assertEquals("Check string for not null or empty", exception.getMessage());
+	}
+	@Test
+	@DisplayName("tesing for Exception for string null")
+		public void testMeth6()
+	{
+		String s=null;
+		Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+			   obj.methodForException(s);
+			  });
+			  assertEquals("Check string for not null or empty", exception.getMessage());
+	}
+	@Test
+	@DisplayName("tesing for not getting Exception for string 123")
+		public void testMeth7()
+	{
+		int actual=obj.methodForException("123");
+		assertEquals(123,actual);
+	}
+	
+	
+	
+}

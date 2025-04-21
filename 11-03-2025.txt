@@ -1,0 +1,438 @@
+       //ArithmeticException d
+----------------------------------------
+package com.exceptions;
+
+import java.util.Scanner;
+
+public class AbnormalTermination {
+
+	public static void main(String[] args) {
+		Scanner s=new Scanner(System.in);
+		int a=s.nextInt();
+		try {
+		int d=42/a;
+		System.out.println(d);
+		}
+		catch(ArithmeticException e) {
+			System.out.println(e);
+			
+		}
+		
+		System.out.println("hello");
+	}
+
+}
+-----------------------------------------------------------------------------------------------
+2)package com.exceptions;
+
+import java.util.Scanner;
+
+public class AbnormalTermination {
+
+	public static void main(String[] args) {
+		Scanner s=new Scanner(System.in);
+		int a=s.nextInt();
+		try {
+		int d=42/a;
+		System.out.println(d);
+		int arr[]= {1,2,3};
+		System.out.println(arr[4]);
+		}
+		catch(ArithmeticException e) {
+			System.out.println(e);
+			
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Array"+e);
+			
+		}
+		
+		System.out.println("hello");
+	}
+
+}
+-------------------------------------------------------------------
+
+package com.exceptions;
+
+import java.util.Scanner;
+
+public class AbnormalTermination {
+
+	public static void main(String[] args) {
+		Scanner s=new Scanner(System.in);
+		int a=s.nextInt();
+		try {
+		int d=42/a;
+		System.out.println(d);
+		int arr[]= {1,2,3};
+		System.out.println(arr[4]);
+		}
+		
+		catch(ArithmeticException e) {
+			System.out.println(e);
+			
+		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Array"+e);
+			
+		}
+		catch(Exception e) {
+			System.out.println("Array"+e);// this block must be placed at last 
+			
+		}
+		
+		System.out.println("hello");
+	}
+
+}
+
+
+--------------------------------------------------------------------
+throw demo
+------------------------------------------------------
+package com.exceptions;
+
+public class ThrowDemo {
+static void meth()
+{
+System.out.println("welcome to meth");	
+throw new ArithmeticException("demo");
+}
+public static void main(String args[])
+{
+	  ();
+	System.out.println("hello");
+}
+}
+-----------------------------------------------------------------------------------  
+
+
+throws Demo
+---------------------------------------------------------
+package com.exceptions;
+
+import java.io.FileNotFoundException;
+
+public class ThrowDemo {
+static void meth()throws ArithmeticException
+{
+System.out.println("welcome to meth");	
+throw new ArithmeticException("demo");
+	
+}
+public static void main(String args[])
+{try {
+	meth();
+}
+	catch(Exception e)
+	{
+		System.out.println(e);
+	}
+	System.out.println("hello");
+}
+}
+----------------------------------------------------------------------------------
+
+
+
+package com.exceptions;
+import java.util.*;
+public class FinallyDemo {
+
+	public static void main(String[] args) {
+	Scanner sc=null;
+		try
+		{
+		sc=new Scanner(System.in);
+			int a=sc.nextInt();
+			int d=42/a;
+		}
+		/*catch(Exception e)   
+		{
+			System.out.println(e);
+		}*/
+		finally
+		{
+		sc.close();
+		System.out.println("i am in finally");
+		}
+	}
+
+}
+-------------------------------------------------------------------------------------
+---------------------------------try with resources demo---------------------------
+package com.exceptions;
+import java.io.*;
+import java.util.Scanner;
+
+public class TryWithResources {
+    public static void main(String[] args) {
+                try (Scanner scanner = new Scanner(System.in);
+                		FileOutputStream fos=new FileOutputStream("c:/a.txt")) {
+            System.out.print("Enter your name: ");
+            String name = scanner.next();
+            System.out.print("Enter your age: ");
+            int age = scanner.nextInt();
+            
+            System.out.println("Hello, " + name + "! You are " + age + " years old.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e);
+        } 
+        
+    }
+}
+
+
+----------------------------------------
+package com.exceptions;
+import java.io.*;
+public class CheckedExceptionDemo{
+public static void main(Stings[] args)throws Exception
+{
+FileInputStream fis=new FileInputStream ("d://a.txt);
+}
+}
+
+
+----------------------------------------------------------------------------
+CustomeException
+---------------------------------
+package com.exceptions;
+
+
+
+class InvalidAgeExceptionDemo
+{
+	static void checkAge(int age)
+	{
+		
+		if(age<18)
+		{
+			throw new InvalidAgeException("sorry!!invalid age");
+		}
+		else
+		{
+			System.out.println("valid age");
+		}
+		
+	}
+	public  static void main(String args[])
+	{
+		checkAge(17);
+	}
+			
+	}
+class InvalidAgeException extends RuntimeException {
+	 InvalidAgeException (String s)
+	 {
+		 System.out.println(s);
+	 }
+}
+-------------------------------------------------------------------------------------------------------
+
+
+package com.collections;
+import java.util.*;
+public class ArrayListDemo {
+
+	public static void main(String[] args) {
+		List l=new ArrayList();
+		
+		l.add(3);
+		l.add(4.1f);
+		l.add("ann");
+		l.add(1, "ben");
+		l.add("ann");
+		l.set(3,"ken");
+		System.out.println(l.contains("ann"));
+	}
+----------------------------------------------------------------------------------------------------
+package com.collections;
+import java.util.*;
+public class ArrayListDemo {
+
+	public static void main(String[] args) {
+		List l=new ArrayList();
+		
+		l.add(3);
+		l.add(4.1f);
+		l.add("ann");
+		l.add(1, "ben");
+		l.add("ann");
+		l.set(3,"ken");
+		//System.out.println(l.contains("ann"));
+		//System.out.println(l);
+		System.out.println("iterating through enhanced for loop");
+		for (Object s:l)
+		{
+			System.out.println(s);
+		}
+		System.out.println("using normal forloop");
+		for(int i=0;i<l.size();i++)
+{
+	System.out.println(l.get(i));
+}
+		System.out.println("iterator method");
+		Iterator i1=l.iterator();
+		while(i1.hasNext())
+		{
+			Object o=i1.next();
+			System.out.println(o);
+		}
+	
+	}
+
+}
+=================================================================================
+1)You are required to implement a program that performs basic operations on an ArrayList without using generics. Your task is to:
+
+Create an ArrayList that can store elements of any type (use ArrayList without generics).
+Add the following elements to the list: "Java", 100, 3.14, "Spring", and true.
+Iterate over the list and print each element with its data type.
+Remove the third element from the list.
+Print the list after removal.
+
+2)You are required to perform operations on a HashSet without using generics. Your task is to:
+
+Create a HashSet that can store elements of different types (use Set without generics).
+Add the following elements to the set: "Hello", 42, 3.14, true, and "World".
+Iterate over the set and print each element along with its data type.
+Check if the set contains the number 42, and print "42 is present" if found.
+Remove "World" from the set and print the set after removal
+
+=========================================================================
+Generics
+--------:
+      
+import java.util.*;
+public class GenericsDemo {
+
+	public static void main(String[] args) {
+		List<Integer> l=new ArrayList();
+		l.add(3);
+		l.add(5);
+		l.add(8);
+		for(Integer x:l)
+		{
+			System.out.println(x);
+		}
+	}
+===
+2)
+package com.collections;
+import java.util.*;
+class Student
+{
+	private int id;
+	private String name;
+	private String College;
+	public Student(int id, String name, String college) {
+		super();
+		this.id = id;
+		this.name = name;
+		College = college;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCollege() {
+		return College;
+	}
+	public void setCollege(String college) {
+		College = college;
+	}
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", College=" + College + "]";
+	}
+	
+	
+	
+	
+	
+}
+public class GenericsDemo {
+
+	public static void main(String[] args) {
+		List<Student> l=new ArrayList();
+		Student s1=new Student(10,"ann","UVCE");
+		Student s2=new Student(11,"bann","UVCE");
+		Student s3=new Student(12,"kann","UVCE");
+		l.add(s1);l.add(s2);l.add(s3);
+		l.add(new Student(13,"ren","bcdb"));
+		for(Student x:l)
+		{
+			System.out.println(x.getName());
+		}
+	}
+
+}
+---------------------------------
+
+
+   Collections Framework 
+-----------------------------------------------------
+1.Design a class Book in com.model package containing following private members: 
+	bookID	text
+title	text
+author	text
+category	text
+price	float
+
+Define public Parameterized constructor to initialize Book object. 
+
+
+2.Design a class called BookStore in com.service package which contains an appropriate collection object to store Book   Instances.
+
+Implement the below operations.
+
+1.	addBook(Book b)
+To add a new Book object into the collection.
+
+2.	searchByTitle(String title)
+Search a book based on title and if found, display the details
+
+3.	searchByAuthor(String author)
+Search a book based on author and if found, display the details
+
+4.	displayAll()
+Print the details of all the books
+
+
+3.Create a class BookUtil in package com.bookutil which has the main method.
+
+•	Instantiate th   e BookStore class
+•	Read data from user for 3 Book objects.
+Perform the below validations
+
+•	Category must be “Science”, “Fiction”, “Technology” or “Others”
+•	Price cannot be negative
+•	bookID must start with ‘B’ and must be of length 4 characters
+
+If any of the validations fail, throw an user defined exception InvalidBookException with appropriate message(As specified in validations above).Declare this exception in com.exception package.
+
+4.Implement below  Operations:
+
+•	For Valid Book,Call the addBook method to add the book objects into the collection
+•	Search the books by title and author
+•	Display all the book details
+
+
+
+
+		
+
+
+
+
+		

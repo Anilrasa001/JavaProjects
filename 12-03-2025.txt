@@ -1,0 +1,820 @@
+      ---------------------------------------------------------------------------------------------------------------------
+
+how to pass a list to method and return method
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+package com.collections;
+import java.util.*;
+class Student
+{
+	private int id;
+	private String name;
+	private String College;
+	public Student(int id, String name, String college) {
+		super();
+		this.id = id;
+		this.name = name;
+		College = college;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCollege() {
+		return College;
+	}
+	public void setCollege(String college) {
+		College = college;
+	}
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", College=" + College + "]";
+	}
+	
+	
+	
+	
+	
+}
+public class GenericsDemo {
+
+	static List<String> displayList(List<Student> list)
+	{
+		List<String> stringList=new ArrayList();
+		for(Student s:list)
+		{
+			stringList.add(s.getName());
+		}
+		return stringList;
+		
+	}
+	public static void main(String[] args) {
+		List<Student> l=new ArrayList();
+		Student s1=new Student(10,"ann","UVCE");
+		Student s2=new Student(11,"bann","UVCE");
+		Student s3=new Student(12,"kann","UVCE");
+		l.add(s1);l.add(s2);l.add(s3);
+		l.add(new Student(13,"ren","bcdb"));
+		List<String> l1=displayList(l);
+		for(String  x:l1)
+		{
+			System.out.println(x);
+		}
+	}
+
+}
+-------------------------------------------------------------------------------------------------
+DESCRIPTION
+Are you vaccinated?
+Do you know COVID-19 vaccine introduced in India is effective as any vaccine developed by other countries. Various phases of vaccine trials are undertaken to ensure its safety and efficacy.
+Here is a task for you!
+Complete the classes using the Specifications given below. Consider default visibility of classes, data fields, and methods unless mentioned otherwise.
+Specifications
+class definitions:
+  class Vaccine:
+    data members: 
+       int age
+       float dosage
+      visibility: private
+
+    Vaccine(int age): constructor with public visibility
+    Define getter setters with public visibility 
+
+  class VaccinationCamp:
+    data member:
+     ArrayList<Vaccine> list = new ArrayList<>();
+
+    method definitions:
+      assignVaccine():
+        return type: void
+
+      vaccineInjected():
+        return type: float
+Task
+Class Vaccine
+- define the int variable age.
+- define the float variable dosage.
+-define a constructor and getter setters according to the above specifications.
+Class VaccinationCamp
+- define the ArrayList<Vaccine> variable list.
+Implement the below methods for this class:
+-void assignVaccine():
+•	The dosage of vaccine to be injected into a person is based on age, the guidelines are given below:
+•	If age >=45, dosage = 250.
+•	If age >= 20, dosage = 200.
+•	If age < 20, dosage = 100.
+•	Set the dosage according to the age in list.
+-float vaccineInjected():
+•	Write a code to find the total vaccine dosage required to get all the people vaccinated
+•	Return the total dosage
+Refer to the sample output for clarity
+Sample Input
+VaccinationCamp vc = new VaccinationCamp();
+ vc.list.add(new Vaccine(49));
+ vc.list.add(new Vaccine(26));
+ vc.list.add(new Vaccine(19));
+---------------------------------------------------------- 
+vc.assignVaccine();
+vc.vaccineInjected();
+Sample Output
+550.0
+
+
+ans:
+----
+package com.sample_12_03_2025;
+import java.util.ArrayList;
+
+class Vaccine {
+    private int age;
+    private float dosage;
+
+    public Vaccine(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public float getDosage() {
+        return dosage;
+    }
+
+    public void setDosage(float dosage) {
+        this.dosage = dosage;
+    }
+}
+
+class VaccinationCamp {
+    ArrayList<Vaccine> list = new ArrayList<>();
+
+    public void assignVaccine() {
+        for (Vaccine v : list) {
+            if (v.getAge() >= 45) {
+                v.setDosage(250);
+            } else if (v.getAge() >= 20) {
+                v.setDosage(200);
+            } else if(v.getAge() <20) {
+                v.setDosage(100);
+            }
+        }
+    }
+
+    public float vaccineInjected() {
+        float totalDosage = 0;
+        for (Vaccine v : list) {
+            totalDosage += v.getDosage();
+        }
+        return totalDosage;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        VaccinationCamp vc = new VaccinationCamp();
+        vc.list.add(new Vaccine(49));
+        vc.list.add(new Vaccine(26));
+        vc.list.add(new Vaccine(19));
+        
+        vc.assignVaccine();
+        System.out.println(vc.vaccineInjected()); // Expected Output: 550.0
+    }
+}
+=================================================================================================
+list of strings
+---------------
+import java.util.*;
+public class StringSorting {
+
+	public static void main(String[] args) {
+		List<String> l=Arrays.asList("ben","den","ann");
+		Collections.sort(l);
+		System.out.println(l);
+
+	}
+
+}
+
+list of Integers
+-----------------:
+package com.sample_12_03_2025;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class StringSorting {
+	
+	public static void main(String[] arr) {
+		List <Integer> l1=Arrays.asList(1,2,3,4);
+		Collections.sort(l1);
+		System.out.println(l1);
+	}
+}
+==============================================================
+package com.unext;
+import java.util.*;
+
+class Student1 implements Comparable<Student1>{  
+int rollno;  
+String name;  
+int age;  
+Student1(int rollno,String name,int age){  
+this.rollno=rollno;  
+this.name=name;  
+this.age=age;  
+}  
+  
+public int compareTo(Student1 st){  
+ return name.compareTo(st.name);
+}
+
+@Override
+public String toString() {
+	return "Student1 [rollno=" + rollno + ", name=" + name + ", age=" + age + "]";
+} 
+
+
+}  
+
+
+
+ class ComparableDemo{  
+public static void main(String args[]){  
+ArrayList<Student1> al=new ArrayList();  
+al.add(new Student1(101,"Vijay",23));  
+al.add(new Student1(106,"Ajay",27));  
+al.add(new Student1(105,"Jai",21));  
+  
+Collections.sort(al);  
+//printing using enhanced forloop
+//for(Student1 st:al){  
+//System.out.println(st.rollno+" "+st.name+" "+st.age);  
+//} 
+//System.out.println("printing the list using iterator in forward direction only");
+//   Iterator<Student1>it=al.iterator();
+//   while(it.hasNext())
+//   {
+//	   Student1 obj=it.next();
+//	   System.out.println(obj);
+//   }
+//   
+System.out.println("traversing list iusing listiterator forwards and backward");
+   ListIterator<Student1> lt=al.listIterator();
+   while(lt.hasNext())
+   {
+	   Student1 obj=lt.next();
+	   System.out.println(obj);
+   }
+   System.out.println("printing backwards");
+   while(lt.hasPrevious())
+   {
+	   Student1 obj=lt.previous();
+	   System.out.println(obj);
+   }
+}  
+} 
+
+=======================================
+comparator 
+------------
+import java.util.*;
+class Student12{  
+int rollno;  
+String name;  
+int age;  
+Student12(int rollno,String name,int age){  
+this.rollno=rollno;  
+this.name=name;  
+this.age=age;  
+}  
+}  
+
+class AgeComparator implements Comparator{  
+public int compare(Object o1,Object o2){  
+Student12 s1=(Student12)o1;  
+Student12 s2=(Student12)o2;  
+  
+return s1.age-s2.age; 
+}  
+}  
+
+
+class NameComparator implements Comparator{  
+public int compare(Object o1,Object o2){  
+Student12 s1=(Student12)o1;  
+Student12 s2=(Student12)o2;  
+  
+return s1.name.compareTo(s2.name);  
+}  
+}  
+
+public class ComparatorDemo {
+
+	public static void main(String[] args) {
+		ArrayList al=new ArrayList();  
+		al.add(new Student12(101,"Vijay",23));  
+		al.add(new Student12(106,"Ajay",27));  
+		al.add(new Student12(105,"Jai",21));  
+		  
+		System.out.println("Sorting by Name");  
+		  
+		Collections.sort(al,new NameComparator());  
+		Iterator itr=al.iterator();  
+		while(itr.hasNext()){  
+		Student12 st=(Student12)itr.next();  
+		System.out.println(st.rollno+" "+st.name+" "+st.age);  
+		}  
+		  
+		System.out.println("Sorting by age");  
+		  
+		Collections.sort(al,new AgeComparator());  
+		Iterator itr2=al.iterator();  
+		while(itr2.hasNext()){  
+		Student12 st=(Student12)itr2.next();  
+		System.out.println(st.rollno+" "+st.name+" "+st.age);  
+		}  
+		  
+		  
+		}  
+		}
+------------------------------------------------------------------------------
+Hashmap
+--------:
+import java.util.*;
+public class HashMapDemo {
+
+	public static void main(String[] args) {
+	Map<String,Integer>	m=new HashMap();
+	m.put("ann",123);
+	m.put("bann",1234);
+	m.put("kann",124);
+	m.put("bann",1222);
+//	System.out.println(m.get("kann"));
+//	System.out.println(m.containsKey("bann"));
+	System.out.println("printing using enhanced for loop");
+	for(Map.Entry<String,Integer> p:m.entrySet())
+	{
+		System.out.println(p.getKey()+": "+p.getValue());
+	}
+	System.out.println("printing keys");
+	Set<String> s=m.keySet();
+	for(String g:s)
+	{
+		System.out.println(g);
+	}
+	System.out.println("printing values");
+Collection<Integer>p=m.values();
+for(Integer g:p)
+{
+	System.out.println(g);
+}
+	}
+
+}
+
+
+
+2)
+import java.util.*;
+class Person
+{
+	int id;
+	String name;
+	double salary;
+	public Person(int id, String name, double salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	}
+	
+}
+public class HashMapDemo {
+
+	static void displayDetails(Map<Integer,Person> p)
+	{
+		for(Map.Entry<Integer, Person> m:p.entrySet())
+		{
+			System.out.println(m.getKey()+" :"+m.getValue());
+		}
+	}
+	public static void main(String[] args) {
+	Map<Integer,Person> m=new HashMap();
+	Person p1=new Person(10,"ann",7000);
+	Person p2=new Person(11,"bann",17000);
+	Person p3=new Person(12,"kann",27000);
+	m.put(p1.getId(),p1);
+	m.put(p2.getId(),p2);
+	m.put(p3.getId(),p3);
+	displayDetails(m);
+	}}
+------------------------------------------------------------------------------------------------------------------
+Question:
+You are tasked with developing a Java-based system that allows users to store and retrieve insurance policy details.
+
+The program should accept n policy details from the user, where each policy has a unique policyId and a policyName.
+The policy details should be stored in a TreeMap<Integer, String> where the key is policyId and the value is policyName.
+Implement a method addPolicyDetails(int policyId, String policyName) that adds policy details to the map.
+Implement a method searchBasedOnPolicyType(String policyType) that searches for policies containing the given policy type in their names and returns a list of matching policyIds.
+Finally, display all stored policies in sorted order based on policyId, and allow the user to search for policies by entering a policyType.
+
+eg:
+For example: If the map contains the key and value as:
+	 *  10654 Max Bupa Health Insurance
+	    10321 SBI Health Insurance
+	    20145 IFFCO Tokio Two Wheeler Insurance
+	    20165 New India Assurance Two Wheeler Insurance
+	    10110 
+		if the policy type is Health the output should be
+		10110
+		10321
+		10654
+==================================================================================================================================================
+                                        JAVA 8
+==================================================================================================================================================
+
+
+interface I1
+{
+	void meth();
+	static void meth2() {
+		System.out.println("i am static method");
+	}
+	default void defaultmethod() {
+		System.out.println("i am in interface");
+	}
+	
+	
+}
+class App implements I1
+{
+	public void meth()
+	{
+		System.out.println("instance method");
+	}
+public void defaultmethod()
+	{
+		System.out.println("overridden default method");
+	}
+}
+public class StaticDefaultInterface {
+
+	public static void main(String[] args) {
+		I1 obj=new App();
+		   ;
+		obj.defaultmethod();
+		I1.meth2();
+	}
+
+}
+------------------------------------------------------------------
+Optional In java
+-------------------------
+
+import java.util.Optional;
+
+public class OptionalDemo {
+
+	public static void main(String[] args) {
+		String name=null;
+		Optional<String> s=Optional.ofNullable(name);
+	if(s.isPresent())
+	{
+		System.out.println(s.get());
+	}
+	else
+	{
+		System.out.println("not found");
+	}
+System.out.println("hello");
+
+	}
+
+}
+------------------------------------------------------------------------
+
+public class OptionalExample {
+    public static void main(String[] args) {
+        // Create an empty Optional
+        Optional<String> emptyOptional = Optional.empty();
+        
+        // Check if the Optional is empty
+        if (emptyOptional.isEmpty()) {
+            System.out.println("The Optional is empty!");
+        } else {
+            System.out.println("The Optional contains a value.");
+        }
+    }
+}
+---------------------------------------------------------------
+Lambda
+======
+
+interface i1
+{
+	void meth(int a,int b);
+
+}
+/*
+class A implements i1
+{
+	public void meth()
+	{
+		System.out.println("hello");
+	}
+}
+*/
+public class LambdaExpression {
+
+	public static void main(String[] args) {
+		/*i1 obj=new i1()
+				{
+			public void meth()
+			{
+				System.out.println("hello");
+			}};*/
+		i1 obj=(  m, n)->	System.out.println("hello"+(m+n));
+		
+			
+		obj.meth(3,4);
+
+	}
+
+}
+---------------------------------------------------------------------------------
+
+package com.java8;
+
+interface i1
+{
+
+	int meth(int a,int b);
+	
+
+}
+/*
+class A implements i1
+{
+	public void meth()
+	{
+		System.out.println("hello");
+	}
+}
+*/
+public class LambdaExpression {
+
+	public static void main(String[] args) {
+		/*i1 obj=new i1()
+				{
+			public void meth()
+			{
+				System.out.println("hello");
+			}};*/
+		i1 obj=(  m, n)->	{
+			m++;n++;
+			return(m+n);
+		};
+			
+		System.out.println(obj.meth(13,14));
+
+------------------------------------------------------------------------
+
+q)write a  function it take integer and return double 
+
+ans:
+package com.java8;
+
+import java.util.function.Function;
+
+public class LambdaMaxFinder{
+	public static void main(String[] args) {
+		Function<Integer,Double> f=(x)->(double)x*x;
+		System.out.println(f.apply(3));
+		
+	}
+}
+
+
+	}
+
+}
+----------------------------------------------------------------------
+
+
+
+Q2)
+Write a single-method solution using a lambda expression that finds the larger of two numbers.
+
+Input: Two numbers x and y.
+
+Output: Return the larger of the two number
+
+
+-------------------------------------------------------
+import java.util.function.*;
+
+public class BuiltinFunctionalInterfaceDemo {
+
+	public static void main(String[] args) {
+/*		Function<String,Integer> fun=(a)->a.length();
+System.out.println(fun.apply("hello"));
+
+Function<Integer,Double> f=(x)->(double)x*x;
+System.out.println(f.apply(3));
+Supplier<String> s=()->"hello wold";
+System.out.println(s.get());
+*/
+Predicate<Integer> isEven = (num) -> num % 2 == 0;
+
+
+System.out.println(isEven.test(4)); 
+System.out.println(isEven.test(7)); 
+
+	}
+
+
+
+=======================================
+Code to create Restaurent Info Application ....As we are not using any database to store the data,so we should be using Collections to perform some basic crud operations,in order to understand the usage and implementation of collections at the basic stages..
+
+
+Following are the Classes required for this Application
+
+1.Restaurent
+a. Add getter/setter methods
+b.Add Constructor for this class
+c.Overide toString method also
+
+data members of this class
+•	String name;
+•	String location;
+•	String cuisine; 
+•	String rating;
+
+Constructor Syntax: for Participants coding convience and understanding 
+public Restaurent(String name, String location, String cuisine,String rating) {}
+
+
+2.DAOLayer
+methods in this class
+ Restaurent searchRestaurent( ArrayList<Restaurent> contacts,String info)
+returns the restaurent information searching for,this method takes 2 parameters ,the first paramter holds data of Restaurent to be stored and the second parameter holds the name of the restaurent to be searched
+
+
+ void addRestaurent(ArrayList<Restaurent> al)
+This Method is used to Store the Restaurent Details,and also prints the stored Restaurent Details,this method should use a Iterator to iterate over the collection and print the details has mentioned in Sample Output 1:
+
+3.Source: This class should contain the method which is important for the tool,for execution of ur application,this class would be already available in the tool's coding template.
+
+
+Note: ----> Two Restaurent names should be taken has input for Sample Input 1
+
+Sample Input 1:
+1 ------>Input Choice or Option( should be int)
+NH8 ------>Restaurent Name
+Indiranagar ------->location
+Indian ------> cuisine
+3 ------> Rating
+Adigas ------>Restaurent Name
+Indiranagar ------->location
+Indian ------> cuisine
+4 ------> Rating
+
+Sample Output 1:
+Name:NH8
+Location:Indiranagar
+Cuisine:Indian
+Rating:3
+Name:Adigas
+Location:Indiranagar
+Cuisine:Indian
+Rating:4
+
+
+Sample Input 2:
+2 ------>Input Choice or Option( should be int)
+NH8 ------>Restaurent Name
+Indiranagar ------->location
+Indian ------> cuisine
+3 ------->Rating
+Adigas ------>Restaurent Name
+Indiranagar ------->location
+Indian ------> cuisine
+4 -------->Rating
+Adigas -------> Input for Restaurent Name to be searched
+
+
+Sample Output 2:
+Found:Name=Adigas,Location=Indiranagar,Cuisine=Indian,Rating=4
+---------------------------------------------------------------------------------
+
+DESCRIPTION
+Amit is a government employee. Indian government provides scholarships to college students on a performance basis. Amit has been given the responsibility to assign scholarships based on student percentage and find the total amount of scholarship.
+Help Amit to complete the classes using the Specifications given below. Consider default visibility of classes, data fields, and methods unless mentioned otherwise.
+Specifications
+class definitions:
+  class Student:
+    data members: 
+       String name
+       String collegeName
+       float percentage
+       float scholarship
+      visibility: private
+
+    (name, collegeName, percentage): constructor with public visibility
+    Define getter setters with public visibility
+
+  class Portal:
+    data member:
+       ArrayList<Student> studentList
+
+    method definitions:
+      assignScholarship():
+        return type: void
+
+      totalScholarship():
+        return type: float
+
+      totalMaxScholarshipOfCollege():
+        return type: String  
+Task
+Class Student
+- define the String variable name.
+- define the String variable collegeName.
+- define the float variable percentage.
+- define the float variable scholarship.
+-define a constructor and getter setters according to the above specifications.
+Class Scholarship
+- define the ArrayList<Student> variable studentList.
+Implement the below methods for this class:
+-void assignScholarship():
+•	The scholarship is going to be assigned based on the percentage given below:
+•	If percentage >=91, scholarship = 10000.
+•	If percentage >= 81, scholarship = 5000.
+•	If percentage < 81, scholarship = 0.
+•	Set the scholarship according to the percentage in studentList.
+-float tolatScholarship():
+•	Write a code to find the total scholarship going to be paid by the government.
+•	Return the total scholarship.
+Example:
+studentList = [{"Steve", "IIT", 89, 5000}, {"Bob", "NIT", 94, 10000}, {"Alice", "Abcd", 59, 0}] , totalScholarship = 15000.
+-String tolatMaxScholarshipOfCollege():
+•	Write a code to find the total scholarship of all the colleges and return the college name with the maximum scholarship.
+Example:
+studentList = [{"Steve", "IIT", 89, 5000}, {"Bob", "NIT", 94, 10000}, {"Alice", "NIT", 85, 5000}] then the collegeName = "NIT".
+Sample Input
+Portal obj = new Portal();
+obj.studentList.add(new Student("Steve", "IIT", 89));
+obj.studentList.add(new Student("Bob", "NIT", 94));
+obj.studentList.add(new Student("Alice", "Abcd", 59));
+------------------------------------------------------------
+obj.assignScholarship();
+obj.totalScholarship();
+obj.totalMaxScholarshipOfCollege();
+Sample Output
+15000.0
+NIT
+
+
+
+
+
+

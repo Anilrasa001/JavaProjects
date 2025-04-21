@@ -1,0 +1,842 @@
+Method Reference
+================  
+1)Static method Reference
+2)Instance Method Reference 
+3)Constructor Method Reference
+
+
+
+1)Static method Reference
+--------------------------
+import java.util.function.*;;
+public class StaticMethRef 
+{
+	static int  meth(int x,int y)
+	{
+		return x+y;
+		
+	}
+
+	public static void main(String[] args) {
+		//using lambda expression
+		Function<Integer,Double> fun=(n)-> Math.sqrt(n);
+		System.out.println(fun.apply(4));
+		
+		//using method referenece
+		Function<Integer,Double> fun1= Math::sqrt;
+		System.out.println(fun1.apply(4));
+		
+		
+		//using lambda expression
+		BiFunction<Integer,Integer,Integer> fun2=(a,b)->StaticMethRef.meth(a, b);
+		System.out.println(fun2.apply(3, 4));
+		
+		//using method referenece
+		BiFunction<Integer,Integer,Integer> fun3=StaticMethRef::meth;
+		System.out.println(fun3.apply(3, 4));
+
+	
+	}
+
+}
+
+2)Instance Method Reference
+----------------------------
+package com.MethodReference;
+
+interface inter
+{
+	public void show(String msg);
+	
+}
+
+class app12
+{
+	public void disp(String msg)
+	{
+		System.out.println(msg.toUpperCase());
+	}
+	public void disp(String msg,String f)
+	{
+		System.out.println(msg.toLowerCase()+" "+f.toLowerCase());
+	}
+}
+public class InstanceMethodReference {
+
+	public static void main(String[] args) {
+	//using lambda expression
+app12 obj=new app12();
+/*
+inter obj1=(msg)-> obj.disp(msg);
+obj1.show("hello");
+*/
+//using method reference
+inter obj2=obj::disp;
+obj2.show("HELLO");
+
+
+
+	}
+
+}
+
+----------------------------------------------------------
+STREAM API
+===========:
+
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamDemo1 {
+public static void main(String args[])
+{
+	List<Integer> l=Arrays.asList(4,5,6,7,8);
+	//Stream<Integer>s=l.stream();
+	//s.forEach(x->System.out.println(x));
+	//s.forEach(System.out::println);
+//	l.stream().forEach(x->System.out.println(x));
+//	l.stream().forEach(System.out::println);
+	int s=l.stream().filter(x->x>4).mapToInt(x->x).sum();
+	System.out.println("sum is"+s);
+	
+}
+}
+
+
+2)
+
+package com.java8;
+
+import java.util.stream.*;
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamAPIDemo {
+
+	public static void main(String[] args) {
+		List<Integer> l=Arrays.asList(4,5,6,3,8,9,3);
+		//Stream<Integer> s=l.stream();
+		//s.forEach(x->System.out.println(x));
+		//s.forEach(System.out::println);
+		//l.stream().forEach((x)->System.out.println(x));
+		//l.stream().forEach(System.out::println);
+		//int n= l.stream().filter(x->x>4).mapToInt(x->x).sum();
+		//System.out.println(n);
+		//l.stream().filter(x->x%2==0).forEach(System.out::println);
+		//System.out.println(l.stream().filter(x->x%2==0).count());
+		l.stream().distinct().forEach(System.out::println);
+		List<String> l1=Arrays.asList("ben","ann","john");
+		l1.stream().map(x->x.toUpperCase()).filter(x->x.contains("E")).forEach(System.out::println);
+		l1.stream().map(String::toUpperCase).forEach(System.out::println);
+		
+ 
+	}
+
+
+
+package com.sample13_03_2025; 
+import java.util.*;
+import java.util.stream.*;
+
+public class StreamDemo1 {
+public static void main(String args[])
+{
+	List<Integer> l=Arrays.asList(4,5,6,7,8);
+	//Stream<Integer>s=l.stream();
+	//s.forEach(x->System.out.println(x));
+	//s.forEach(System.out::println);
+//	l.stream().forEach(x->System.out.println(x));
+//	l.stream().forEach(System.out::println);
+//	int s=l.stream().filter(x->x>4).mapToInt(x->x).sum();
+//	System.out.println("sum is"+s);
+	l.stream().filter(x->x%2==0).forEach (System.out::println);   
+	long count = l.stream().filter(x -> x % 2 == 0).count();
+    System.out.println(count);
+    long count1 = l.stream().distinct().count(); // Counts distinct elements
+    System.out.println(count1);
+    
+    List<String> l2=Arrays.asList("ann","ken","benn");
+    l2.stream().map(x->x.toUpperCase()).filter(x->x.contains("E")).forEach(System.out::println);
+    l2.stream().map(String::toUpperCase).forEach(System.out::println);
+	
+//    long count2=l.stream().filter(x->x%2==0).count();
+//    list<String>l2=Arrays .asList("ANIK","DEVA","RAM");
+//    l2.Stream().sorted(Comparator.reversOrder().filter);
+//    
+    int sum=l.stream().reduce(0,(a,b)->a+b);
+    System.out.println(sum);
+    
+    
+    
+    String[] names = {"anil", "sai", "raju"};
+
+    // Corrected Stream creation from array
+    Stream<String> nameStream = Arrays.stream(names);
+    nameStream.forEach(System.out::println); // Prints each name
+
+    // Corrected Stream.of usage
+//    Stream<String> stream = Stream.of("vava", "ksdujs", "c++");
+//    stream.forEach(System.out::println); 
+//    
+    Stream<String> l2l=Stream.of("java","python,","c++");
+//    System.out.println(l2l.noneMatch(x->x.contains("e")));
+//   Stream<String> ll=Stream.of("java","python,","c++");
+//    System.out.println(ll.allMatch(x->x.contains("e")));
+//    Stream<String> l22=Stream.of("java","python,","c++");
+//    System.out.println(l22.anyMatch(x->x.contains("e")));
+    
+    List<String>str=l2l.map(x->x.toUpperCase()).collect(Collectors.toList());
+    str.stream().forEach(System.out::println);
+    
+    
+}
+}
+}
+================================================================
+store 	List to Map
+------------------
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Empl {
+    int id;
+    String name;
+
+    Empl(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+public class ListToMap {
+    public static void main(String[] args) {
+        List<Empl> employees = Arrays.asList(
+            new Empl(1, "John"),
+            new Empl(2, "Jane"),
+            new Empl(3, "Jack")
+        );
+
+
+        Map<Integer, String> employeeMap = employees.stream()
+            .collect(Collectors.toMap(emp -> emp.id, emp -> emp.name));
+
+        System.out.println(employeeMap);
+    }
+}
+
+
+
+
+-----------------------------------------------------------------------
+
+package com.unext.streams;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+
+class Employee {
+    private String name;
+    private int salary;
+
+    public Employee(String name, int salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+	@Override
+	public String toString() {
+		return "Employee [name=" + name + ", salary=" + salary + "]";
+	}
+    
+}
+
+public class EmployeeMaxMin {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+            new Employee("Alice", 70000),
+            new Employee("Bob", 85000),
+            new Employee("Charlie", 65000),
+            new Employee("David", 90000),
+            new Employee("Eve", 72000)
+        );
+        
+        Optional<Employee> highestPaid = employees.stream()
+                .max((e1, e2) -> e1.getSalary() - e2.getSalary());
+
+        Optional<Employee> lowestPaid = employees.stream()
+                .min((e1, e2) -> e1.getSalary() - e2.getSalary());
+
+System.out.println(highestPaid.get());
+System.out.println(lowestPaid.get());
+
+       
+    
+
+        // Find the highest-paid employee
+        Optional<Employee> highestPaid1 = employees.stream()
+                .max(Comparator.comparingInt(Employee::getSalary));
+
+        // Find the lowest-paid employee
+        Optional<Employee> lowestPaid1 = employees.stream()
+                .min(Comparator.comparingInt(Employee::getSalary));
+
+        // Print results
+        System.out.println("Highest Paid: " + highestPaid1.map(Employee::getName).orElse("No employees"));
+        System.out.println("Lowest Paid: " + lowestPaid1.map(Employee::getName).orElse("No employees"));
+  
+   
+}
+}
+
+=========================================================================================================================
+anonymous class
+----------------
+
+package com.unext.streams;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import com.collection.Employee;
+
+class Employee1
+{
+	int id;
+	String name;
+	long salary;
+	public Employee1(int id, String name, long salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getSalary() {
+		return salary;
+	}
+	public void setSalary(long salary) {
+		this.salary = salary;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
+	}
+	
+	
+}
+
+public class EmployeeSorting {
+
+	public static void main(String[] args) {
+		Employee1 obj1=new Employee1(10,"ann",4000L);
+		Employee1 obj2=new Employee1(11,"bann",24000L);
+		Employee1 obj3=new Employee1(12,"cann",14000L);
+		Employee1 obj4=new Employee1(13,"dann",34000L);
+		
+		List<Employee1> list=new ArrayList();
+		list.add(obj1);
+		list.add(obj2);
+		list.add(obj3);
+		list.add(obj4);
+//		List<String> l1=Arrays.asList("ann","beeenu","jeenu");
+//		Map<String,Integer>m=l1.stream().collect(Collectors.toMap(String::new,String::length));
+//		for(Map.Entry<String,Integer > m1:m.entrySet())
+//		{
+//			System.out.println(m1.getKey()+"  "+m1.getValue());
+//		}
+		
+		
+	System.out.println("sorting by anonymous class on salary");
+	list.stream().sorted(new Comparator<Employee1>() {
+		public int compare(Employee1 o1,Employee1 o2)
+		{
+			return (int)(o1.getSalary()-o2.getSalary());
+			
+		}
+	}).forEach(System.out::println);
+	
+	list.stream().sorted(new Comparator<Employee1>() {
+		
+		public int compare(Employee1 e1,Employee1 e2)
+		{
+			return(int)(e1.getSalary()-e2.getSalary());
+		}
+		
+	}).forEach(System.out::println);
+	System.out.println("sorting by anonymous class on name");
+	list.stream().sorted(new Comparator<Employee1>() {
+		public int compare(Employee1 o1,Employee1 o2)
+		{
+			return (int)(o1.getName().compareTo(o2.getName()));
+			
+		}
+	}).forEach(System.out::println);
+	
+	
+	System.out.println("sorting on salary by lambda expression");
+	
+	list.stream().sorted(
+		( o1, o2)->
+		{
+			return (int)(o1.getSalary()-o2.getSalary());
+			
+		}
+	).forEach(System.out::println);
+	list.stream().sorted((o1,o2)->
+	{
+		return (int)(o1.getName().compareTo(o2.getName()));
+	}
+			).forEach(System.out::println);
+	
+		
+		Stream<Employee1>obj=list.stream();
+		obj.sorted(Comparator.comparingLong(Employee1::getSalary).reversed()).forEach(System.out::println);
+	System.out.println("sorting on name by method reference");
+	list.stream().sorted(Comparator.comparing(Employee1::getName).reversed()).forEach(System.out::println);
+		
+				
+		
+			Employee1 e=list.stream().filter(x->x.getSalary()>10000).findAny().get();
+	long l=list.stream().filter(x->x.getSalary()>20000).map(x->x.getSalary()+3000).count();
+	System.out.println(e);
+	System.out.println(l);
+	Optional<Employee1>  e4=list.stream().min
+			(Comparator.comparingLong(Employee1::getSalary));
+	if(e4.isPresent())
+	{
+		Employee1 obj31=e4.get();
+		System.out.println("lowest paid emp"+obj31);
+	}
+Optional<Employee1> l2=	list.stream().max(Comparator.comparingLong(Employee1::getSalary));
+	
+	}
+	*/
+	}
+}
+--------------------------------------------------------------------------------------------------
+LOCAL date in java 8
+=====================:
+package com.datetimeapi;
+import java.time.LocalDate;
+
+public class LocalDateExample {
+    public static void main(String[] args) {
+        // Get the current date
+        LocalDate today = LocalDate.now();
+        System.out.println("Today's Date: " + today);
+
+       // Create a specific date
+        LocalDate specificDate = LocalDate.of(2023, 10, 15);
+        System.out.println("Specific Date: " + specificDate);
+
+        // Add days, months, years
+        LocalDate futureDate = today.plusDays(10);
+        System.out.println("Future Date (10 days later): " + futureDate);
+
+        // Subtract days
+        LocalDate pastDate = today.minusWeeks(2);
+        System.out.println("Past Date (2 weeks ago): " + pastDate);
+/*
+        // Get day of the week and day of the year
+        System.out.println("Day of the week: " + today.getDayOfWeek());
+        System.out.println("Day of the year: " + today.getDayOfYear());
+
+        // Check if a year is a leap year
+        System.out.println("Is this a leap year? " + today.isLeapYear());
+  */
+    }
+}
+
+
+
+2)converting string to date format
+-----------------------------------
+package com.datetimeapi;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+public class SafeStringToLocalDate {
+	
+	    public static void main(String[] args) {
+	        String dateStr = "10-03-2025"; // Expected format: dd/MM/yyyy
+
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+	        try {
+	            LocalDate localDate = LocalDate.parse(dateStr, formatter);
+	            System.out.println("Converted LocalDate: " + localDate);
+	        } catch (DateTimeParseException e) {
+	            System.out.println("Invalid date format: " + e.getMessage());
+	        }
+	    }
+}
+
+
+=============================
+Q)1
+
+
+Author Of Books
+•	subject Coding
+•	casino 100 points
+DESCRIPTION
+Your task here is to implement a Java code based on the following specifications. Note that your code should match the specifications in a precise manner. Consider default visibility of classes, data fields, and methods unless mentioned otherwise.
+Specifications:
+class Author
+  data members:
+   firstName: String
+   lastName: String
+
+  Define a constructor with public visibility
+  Define getter setters with public visibility
+  toString() method has been implemented for you 
+
+class Book
+   data members:
+    title: String
+    Author author
+
+ Define a constructor with public visibility
+ Define getter setters with public visibility
+ toString() method has been implemented for you
+
+class BookImplementation:
+ method definition:
+  firstNameOfAuthors(Author... authors):
+   return type: List<String>
+   visibility: public
+
+  titlesOf(Book... books):
+   return type: List<String>
+   visibility: public
+Task:
+class Author:
+- define the String variable firstName
+- define the String variable lastName
+-define a constructor and getter setters according to the above specifications
+-toString() method has been implemented for you as a part of the code stub
+class Book:
+- define the String variable title
+-define a constructor and getter setters according to the above specifications
+-toString() method has been implemented for you as a part of the code stub
+class BookImplementation:
+Implement the below method for this class using in Stream API:
+•	List<String> firstNameOfAuthors(Author... authors):
+fetch the first name of Author from a list of authors and return it
+•	List<String> titlesOf(Book... books):
+return the titles from a list of books
+Sample Input
+Author joshuaBloch = new Author("Joshua", "Bloch");
+Author brianGoetz = new Author("Brian", "Goetz");
+Author barryBurd = new Author("Barry", "Burd");
+
+Book Java1 = new Book("Effective Java", joshuaBloch);
+Book Java2 = new Book("Java Concurrency In Practice", brianGoetz);
+Book Java3 = new Book("Java For Dummies", barryBurd);
+
+ANS:
+====
+package assignment;
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class Author {
+    private String firstName;
+    private String lastName;
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
+}
+
+class Book {
+    private String title;
+    private Author author;
+
+    public Book(String title, Author author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+}
+
+class BookImplementation {
+    public List<String> firstNameOfAuthors(Author... authors) {
+        return Arrays.stream(authors)
+                .map(Author::getFirstName)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> titlesOf(Book... books) {
+        return Arrays.stream(books)
+                .map(Book::getTitle)
+                .collect(Collectors.toList());
+    }
+}
+
+public class BookImplementDemo {
+    public static void main(String[] args) {
+        Author joshuaBloch = new Author("Joshua", "Bloch");
+        Author brianGoetz = new Author("Brian", "Goetz");
+        Author barryBurd = new Author("Barry", "Burd");
+
+        Book Java1 = new Book("Effective Java", joshuaBloch);
+        Book Java2 = new Book("Java Concurrency In Practice", brianGoetz);
+        Book Java3 = new Book("Java For Dummies", barryBurd);
+
+        BookImplementation bookImplementation = new BookImplementation();
+
+        System.out.println(bookImplementation.titlesOf(Java1, Java2, Java3));
+        System.out.println(bookImplementation.firstNameOfAuthors(joshuaBloch, brianGoetz, barryBurd));
+    }
+}
+----------------------------------------------------------
+Java1, Java2, Java3
+//Input for first method
+joshuaBloch, brianGoetz, barryBurd
+//Input for second method
+Sample Output
+[Effective Java, Java Concurrency In Practice, Java For Dummies]
+[Joshua, Brian, Barry]
+
+
+
+
+
+==================================================
+Q)2
+
+Car Story
+•	subject Coding
+•	casino 100 points
+DESCRIPTION
+This is a short exercise in using the stream API.
+Your task here is to implement a Java code based on the following specifications. Note that your code should match the specifications in a precise manner. Consider default visibility of classes, data fields and methods unless mentioned otherwise.
+Specifications:
+class definitions:
+  class Car:
+      data fields:
+        private name: String variable
+        private carName: String Variable
+        private price: double variable
+      method definitons:
+          Car(String pName, String cName, double p): Constructor to initialize the class
+             Getter methods:
+              getName()
+              getCarName()
+              getPrice()
+             Setter methods:
+              setName()
+              setCarName()
+              setPrice()
+  class CarImplementation:   
+    method definitions:
+        sumOfPrices(List<Car> carList): to add the prices and return using forEach.
+            return type: double
+            visibilty: public              
+            return: totalPrice (sum of prices)
+        printName(List<Car> carList) : to filter data of list
+            return type: List<String>
+            visibility: public
+            return: carNameList(name of cars above 25000)
+        maxPrice(List<Car> carList): to get maximum car price
+            return type: double
+            visibility: public
+            return: maxPrice (maximum price of a car)
+
+You don't need to implement the main() method. It has already been implemented as a part of the test-cases. It contains an ArrayList containing the name, carName and price of the car that will be used to create streams.
+Task:
+Create a Car class which has the following private members:
+name String
+carName String 
+price double
+•	Define parameterized constructor.
+•	Define getter method for all instance variables.(getName(), getcName(),....)
+•	Define setter methods for all instance variables.(setName(), setcName(),....)
+Create a CarImplementation class which performs operations (as per the given requirements) in using Stream Api:
+•	Use map() and reduce() methods to add the prices of all the cars of the ArrayList.
+•	Create a List<String> that contains the name of cars which have a price greater than 25000. Use filter() and forEach() methods for the same.
+•	Fetch that car price which is maximum of all the cars
+Implement using Lambda expressions.
+NOTE
+•	Do not use any for loops or other control structures.
+•	Use the stream API methods for your implementations, else the test-cases might fail.
+•	You don’t need to write the main() function.
+Sample Output
+The given output will be obtained upon successful execution against the Sample test cases.
+3375000.0
+[Alfa Romeo, Bugatti, Chrysler, Dodge, Essen]
+910000.0
+
+
+
+=========================================================================
+
+java-11
+=========================================================================
+public class StringAPIExample {
+    public static void main(String[] args) {
+        String text = " hello world   ";
+
+        System.out.println("isBlank: " + text.isBlank()); 
+        System.out.println("strip: '" + text.strip() + "'"); 
+        System.out.println("repeat: " + "sundaram".repeat(3)); 
+        System.out.println("lines: " + "Line1\nLine2\nLine3".lines().count()); 
+    }
+}
+
+
+2)
+import java.util.*;
+public class ListToArray{
+    public static void main(String[] args) {
+        List<String> list = List.of("Apple", "Banana", "Cherry");
+
+        String[] array = list.toArray(String[]::new);
+        for (String fruit : array) {
+            System.out.println(fruit);
+        }
+    }
+}
+
+
+3)
+import java.util.List;
+import java.util.function.Predicate;
+
+public class PredicateNot {
+    public static void main(String[] args) {
+        List<String> names = List.of("Alice", "  ", "Bob", "", "Charlie");
+
+        names.stream()
+                .filter(Predicate.not(String::isBlank))
+                .forEach(System.out::println);
+    }
+}
+
+
+======================================================================
+
+JDBC
+======
+
+
+package com.jdbc;
+
+import java.sql.*;
+
+import com.daoconnection.DBConnection;
+
+public class Demo1 {
+
+	public static void main(String[] args) {
+		try {
+			
+	Connection con=	DBConnection.getConnection();	
+		
+Statement st=con.createStatement();
+ResultSet rs=st.executeQuery("select * from emp1");
+while(rs.next())
+{
+	System.out.println(rs.getInt(1)+" "+rs.getString(2));
+}
+
+	}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+
+}
+}
+--------------------------------------
+package com.daoconnection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConnection {
+public static Connection getConnection()
+{
+	Connection con=null;
+
+	try {
+	Class.forName("org.postgresql.Driver");
+	con=DriverManager.getConnection("jdbc:postgresql://localhost/sundaram","postgres","Shreemb2004r");
+}
+	catch(Exception e)
+	{
+		System.out.println(e);
+	}
+	return con;
+}}
+
+
+
+
